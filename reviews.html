@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews | Gene 3's Catering</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.ty-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;}
+.ty-overlay.show{display:flex;}
+.ty-box{background:#fff;border-radius:16px;padding:50px 40px;text-align:center;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:popIn 0.3s ease;}
+@keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.ty-box .check{font-size:60px;margin-bottom:16px;}
+.ty-box h2{font-size:28px;color:#900202;font-family:'Playfair Display',serif;margin-bottom:10px;}
+.ty-box p{color:#666;font-size:15px;line-height:1.6;margin-bottom:24px;}
+.ty-box .ok-btn{background:#900202;color:#fff;border:none;padding:12px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;}
+.ty-box .ok-btn:hover{background:#6b0000;}
+</style>
+</head>
+
+<body>
+
+<header class="nav-box">
+<nav class="navbar">
+<div class="logo">
+<div class="main-name">Gene 3's</div>
+<div class="sub-name">Catering Service</div>
+</div>
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="menu.html">Menu</a></li>
+<li><a href="events.html">Event</a></li>
+<li><a href="reviews.html">Reviews</a></li>
+<li><a href="inquire.html">Inquire</a></li>
+<li><a href="contacts.html">Contact Us</a></li>
+</ul>
+</nav>
+</header>
+
+<main class="content-area reviews-page">
+
+<h1 class="reviews-title">Customer Reviews</h1>
+
+<!-- REVIEW FORM -->
+<section class="review-form">
+  <h2>Rate Service</h2>
+
+  <input type="text" id="reviewName" placeholder="Your Name" style="width:100%;padding:12px;margin-bottom:12px;border:1px solid #ccc;border-radius:6px;font-size:15px;">
+
+  <!-- MAIN STAR RATING -->
+  <div class="star-rating" data-target="overall" data-rating="0">
+    <span class="star" data-value="1">&#9733;</span>
+    <span class="star" data-value="2">&#9733;</span>
+    <span class="star" data-value="3">&#9733;</span>
+    <span class="star" data-value="4">&#9733;</span>
+    <span class="star" data-value="5">&#9733;</span>
+  </div>
+
+  <p class="form-label">Upload photo and video</p>
+
+  <div class="upload-area">
+    <label class="upload-box" id="photoLabel">
+      &#128247; Photo
+      <input type="file" id="photoInput" accept="image/*" hidden>
+    </label>
+    <label class="upload-box" id="videoLabel">
+      &#127910; Video
+      <input type="file" id="videoInput" accept="video/*" hidden>
+    </label>
+  </div>
+
+  <p class="form-label">Tell us about your experience</p>
+  <textarea id="reviewMessage" placeholder="Write your review here..."></textarea>
+
+  <!-- STAFF SERVICE -->
+  <div class="rating-row">
+    <span>Staff Service</span>
+    <div class="star-rating" data-rating="0">
+      <span class="star" data-value="1">&#9733;</span>
+      <span class="star" data-value="2">&#9733;</span>
+      <span class="star" data-value="3">&#9733;</span>
+      <span class="star" data-value="4">&#9733;</span>
+      <span class="star" data-value="5">&#9733;</span>
+    </div>
+  </div>
+
+  <!-- FOOD QUALITY -->
+  <div class="rating-row">
+    <span>Food Quality</span>
+    <div class="star-rating" data-rating="0">
+      <span class="star" data-value="1">&#9733;</span>
+      <span class="star" data-value="2">&#9733;</span>
+      <span class="star" data-value="3">&#9733;</span>
+      <span class="star" data-value="4">&#9733;</span>
+      <span class="star" data-value="5">&#9733;</span>
+    </div>
+  </div>
+
+  <button class="submit-review">Submit</button>
+</section>
+
+<!-- REVIEWS LIST -->
+<section class="reviews-list"></section>
+
+</main>
+
+<footer class="footer-box">
+<div class="footer-left">
+<h2>GENE 3'S CATERING SERVICE</h2>
+<p>Tambubong San Rafael Bulacan</p>
+<p>gene3s@gmail.com</p>
+<p>091-2354-2562</p>
+</div>
+</footer>
+
+<!-- Thank You Popup -->
+<div class="ty-overlay" id="tyPopup">
+  <div class="ty-box">
+    <div class="check">&#10003;</div>
+    <h2>Thank You!</h2>
+    <p id="tyMsg">Your review has been submitted!</p>
+    <button class="ok-btn" onclick="window.location.href='index.html'">OK</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const _supa = window.supabase.createClient(
+  "https://scgptbeecanjuboztweb.supabase.co",
+  "sb_publishable_u-VSj6fOWDiipNrC9jZMgw_Oe4AZ_eX"
+);
+
+function showThankYou(msg) {
+  document.getElementById("tyMsg").textContent = msg;
+  document.getElementById("tyPopup").classList.add("show");
+}
+
+async function loadReviews() {
+  var result = await _supa.from("reviews").select("*").order("created_at", {ascending: false});
+  if (result.error) { console.error("Load error:", result.error.message); return; }
+  var list = document.querySelector(".reviews-list");
+  list.innerHTML = "";
+  if (!result.data || !result.data.length) {
+    list.innerHTML = "<p style='text-align:center;color:#aaa;padding:40px'>No reviews yet. Be the first!</p>";
+    return;
+  }
+  result.data.forEach(function(r) {
+    var filled = "&#9733;".repeat(r.rating || 0);
+    var empty  = "&#9734;".repeat(5 - (r.rating || 0));
+    var media  = "";
+    if (r.media_url) {
+      if (r.media_type === "image") {
+        media = '<img src="' + r.media_url + '" style="max-width:100%;border-radius:8px;margin-top:10px;">';
+      } else {
+        media = '<video controls src="' + r.media_url + '" style="max-width:100%;border-radius:8px;margin-top:10px;"></video>';
+      }
+    }
+    list.innerHTML += '<div class="review-card"><div class="avatar"></div><div class="review-content"><h3>' + (r.name || "Anonymous") + '</h3><span class="verified">Verified Customer</span><div class="stars">' + filled + empty + '</div><p>' + (r.message || "") + '</p>' + media + '</div></div>';
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Star rating interaction
+  document.querySelectorAll(".star-rating").forEach(function(rating) {
+    var stars = rating.querySelectorAll(".star");
+    stars.forEach(function(star) {
+      star.addEventListener("click", function() {
+        var value = parseInt(star.getAttribute("data-value"));
+        rating.setAttribute("data-rating", value);
+        stars.forEach(function(s) {
+          s.classList.remove("active");
+          if (parseInt(s.getAttribute("data-value")) <= value) {
+            s.classList.add("active");
+          }
+        });
+      });
+    });
+  });
+
+  // File upload label update — keep input intact
+  document.getElementById("photoInput").addEventListener("change", function() {
+    if (this.files.length > 0) {
+      document.getElementById("photoLabel").childNodes.forEach(function(node) {
+        if (node.nodeType === 3) node.textContent = "📷 " + this.files[0].name;
+      }.bind(this));
+    }
+  });
+
+  document.getElementById("videoInput").addEventListener("change", function() {
+    if (this.files.length > 0) {
+      document.getElementById("videoLabel").childNodes.forEach(function(node) {
+        if (node.nodeType === 3) node.textContent = "🎥 " + this.files[0].name;
+      }.bind(this));
+    }
+  });
+
+  // Submit review
+  document.querySelector(".submit-review").addEventListener("click", async function() {
+    var name      = document.getElementById("reviewName").value.trim();
+    var message   = document.getElementById("reviewMessage").value.trim();
+    var ratingEl  = document.querySelector(".star-rating[data-target='overall']");
+    var rating    = parseInt(ratingEl.getAttribute("data-rating"));
+    var photoFile = document.getElementById("photoInput").files[0];
+    var videoFile = document.getElementById("videoInput").files[0];
+
+    if (!name)    { alert("Please enter your name."); return; }
+    if (!rating)  { alert("Please select a rating."); return; }
+    if (!message) { alert("Please write your review."); return; }
+
+    var media_url  = null;
+    var media_type = null;
+    var file = photoFile || videoFile;
+
+    if (file) {
+      var filename = Date.now() + "." + file.name.split(".").pop();
+      var upload = await _supa.storage.from("review-media").upload(filename, file, {upsert: true});
+      if (upload.error) { alert("Upload failed: " + upload.error.message); return; }
+      var urlData = _supa.storage.from("review-media").getPublicUrl(filename);
+      media_url  = urlData.data.publicUrl;
+      media_type = file.type.startsWith("image") ? "image" : "video";
+    }
+
+    var result = await _supa.from("reviews").insert([{
+      name:       name,
+      rating:     rating,
+      message:    message,
+      media_url:  media_url,
+      media_type: media_type
+    }]);
+
+    if (result.error) {
+      alert("Submission failed: " + result.error.message);
+      console.error(result.error);
+      return;
+    }
+
+    showThankYou("Thank you for your review! It has been submitted successfully.");
+    document.getElementById("reviewName").value = "";
+    document.getElementById("reviewMessage").value = "";
+    document.getElementById("photoInput").value = "";
+    document.getElementById("videoInput").value = "";
+    document.getElementById("photoLabel").childNodes.forEach(function(n){ if(n.nodeType===3) n.textContent = "📷 Photo"; });
+    document.getElementById("videoLabel").childNodes.forEach(function(n){ if(n.nodeType===3) n.textContent = "🎥 Video"; });
+    ratingEl.setAttribute("data-rating", "0");
+    ratingEl.querySelectorAll(".star").forEach(function(s){ s.classList.remove("active"); });
+    loadReviews();
+  });
+
+  loadReviews();
+
+});
+</script>
+
+<script>
+// Highlight current navbar link
+const navLinks = document.querySelectorAll(".nav-links a");
+const currentPage = windo
+.pop();
+navLinks.forEach(function(link) {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gene 3's Catering Service</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="home-page">
+
+<div class="main-container">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="nav-box">
+
+        <nav class="navbar">
+
+            <div class="logo">
+                <div class="main-name">Gene 3's</div>
+                <div class="sub-name">Catering Service</div>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="events.html">Event</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="inquire.html">Inquire</a></li>
+                <li><a href="contacts.html">Contact Us</a></li>
+            </ul>
+
+        </nav>
+
+
+        <!-- HERO SECTION -->
+        <div class="hero-content">
+
+            <div class="hero-text">
+
+                <h1 class="main-headline">
+                    Your Perfect<br>
+                    Celebration<br>
+                    starts here!
+                </h1>
+
+                <p class="hero-description">
+                    From weddings to corporate gatherings, we craft delicious 
+                    experiences tailored to your taste. Book now and let us bring your vision to life!
+                </p>
+
+            </div>
+
+
+           <div class="hero-image-container">
+                <img src="https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=800&auto=format&fit=crop" alt="Catering Service">
+            </div> 
+            
+        </div>
+
+    </header>
+
+
+
+    <!-- MAIN CONTENT -->
+    <main class="content-area">
+
+        <div class="why-choose-us">
+            Why choose us?
+        </div>
+
+        <h2 class="middle-headline">
+            Great Food. Exceptional Service. Unforgettable Experiences.
+        </h2>
+
+        <p class="middle-description">
+            With years of experience in the catering industry, we bring professionalism and passion to every event. 
+            Our top priority is making your event stress-free and unforgettable. 
+            We are committed to bringing your vision into reality.
+        </p>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+    <footer class="footer-box">
+
+        <div class="footer-left">
+
+            <h2 class="footer-logo">
+                GENE 3’S CATERING SERVICE
+            </h2>
+
+            <p>Tambubong, San Rafael, Bulacan</p>
+            <p>gene3s@gmail.com</p>
+            <p>091-2354-2562</p>
+
+        </div>
+
+
+        <div class="footer-right-links">
+
+            <a href="FAQS.html">FAQS</a>
+            <a href="terms_and_conditions.html">TERMS & CONDITIONS</a>
+            <a href="#">PRIVACY POLICY</a>
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+<script>
+// Highlight current navbar link
+const navLinks = document.querySelectorAll(".nav-links a");
+const currentPage = window.location.pathname.split("/").pop(); // gets current filename
+
+navLinks.forEach(link => {
+    // Remove previous active if any
+    link.classList.remove("active");
+    
+    // Add active if link matches current page
+    if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+    }
+});
+</script>
+
+
+</body>
+</html>

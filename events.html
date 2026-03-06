@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events | Gene 3's Catering Service</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="nav-box">
+<nav class="navbar">
+  <div class="logo">
+    <div class="main-name">Gene 3's</div>
+    <div class="sub-name">Catering Service</div>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="events.html">Event</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="inquire.html">Inquire</a></li>
+    <li><a href="contacts.html">Contact Us</a></li>
+  </ul>
+</nav>
+</header>
+
+<main class="content-area events-page">
+
+<h1 class="main-headline">We Accept Catering Services</h1>
+
+<!-- EVENT BUTTONS -->
+<section id="event-list">
+  <div class="events-grid">
+    <div class="events-column">
+      <button class="event-card" onclick="showPackage('wedding')">Wedding</button>
+      <button class="event-card" onclick="showPackage('house')">House Blessing</button>
+    </div>
+
+    <div class="events-column">
+      <button class="event-card" onclick="showPackage('birthday')">Birthday</button>
+      <button class="event-card" onclick="showPackage('graduation')">Graduation</button>
+      <button class="event-card" onclick="showPackage('corporate')">Corporate Event</button>
+    </div>
+
+    <div class="events-column">
+      <button class="event-card" onclick="showPackage('baptismal')">Baptismal</button>
+      <button class="event-card" onclick="showPackage('anniversary')">Anniversary</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PACKAGES ================= -->
+<section id="packages">
+
+<!-- WEDDING -->
+<div class="package" id="wedding">
+<h2>Wedding Package</h2>
+<p class="price">P350/head + 10% Service Charge</p>
+
+<h3>Inclusions</h3>
+<ul>
+<li>Welcome Treats</li>
+<li>Garden Salad Bar</li>
+<li>Choice of Soup (Cream of Mushroom / Chicken Asparagus)</li>
+<li>Chicken Cordon Bleu</li>
+<li>Beef Tenderloin w/ Mushroom Gravy</li>
+<li>Seafood Paella</li>
+<li>Buttered Vegetables with Quail Egg</li>
+<li>Steamed White Rice</li>
+<li>Fresh Fruit Platters</li>
+<li>Macaroni Salad</li>
+<li>Wedding Cake (customized design)</li>
+<li>Bottomless Iced Tea</li>
+<li>Purified Water</li>
+<li>Tube Ice</li>
+</ul>
+
+<h3>Event Setup</h3>
+<ul>
+<li>Complete Setup & Decor</li>
+<li>Bridal Table & Motif of Your Choice</li>
+<li>Elegant Buffet Table with Centerpiece</li>
+<li>Stage Motif Linen Backdrop</li>
+<li>Dessert Table Dress-Up</li>
+</ul>
+
+<h3>Additional Inclusions</h3>
+<ul>
+<li>Balloons or Lighted Candles</li>
+<li>European-Chafing Dishes & Glassware</li>
+<li>Courteous Buffet Staff</li>
+<li>Free Use of Additional Warmers</li>
+<li>Continuous Purified Water Flow</li>
+<li>Elegant Table Settings</li>
+</ul>
+
+<div class="buttons">
+  <button onclick="goBack()">BACK</button>
+  <a href="inquire.html" class="inquire-btn">INQUIRE NOW</a>
+</div>
+</div>
+
+<!-- BIRTHDAY -->
+<div class="package" id="birthday">
+<h2>Birthday Package</h2>
+<p class="price">P325/head + 10% Service Charge</p>
+
+<h3>Inclusions</h3>
+<ul>
+<li>Welcome Treats</li>
+<li>Garden Salad Bar</li>
+<li>Spaghetti Bolognese</li>
+<li>Chicken Cordon Bleu</li>
+<li>BBQ Ribs</li>
+<li>Grilled Fish w/ Lemon Butter Sauce</li>
+<li>Buttered Vegetables with Quail Egg</li>
+<li>Steamed White Rice</li>
+<li>Fresh Fruit Platters</li>
+<li>Buko Pandan</li>
+<li>Bottomless Iced Tea</li>
+<li>Purified Water</li>
+<li>Tube Ice</li>
+</ul>
+
+<h3>Event Setup</h3>
+<ul>
+<li>Complete Setup & Decor</li>
+<li>Birthday Table Motif of Your Choice</li>
+<li>Buffet Table with Elegant Centerpiece</li>
+<li>Stage Motif Linen Backdrop</li>
+<li>Dessert Table Dress-Up</li>
+</ul>
+
+<h3>Additional Inclusions</h3>
+<ul>
+<li>Balloons or Lighted Candles</li>
+<li>European-Chafing Dishes & Glassware</li>
+<li>Courteous Buffet Staff</li>
+<li>Free Use of Additional Warmers</li>
+<li>Continuous Purified Water Flow</li>
+<li>Elegant Table Settings</li>
+</ul>
+
+<div class="buttons">
+  <button onclick="goBack()">BACK</button>
+  <a href="inquire.html" class="inquire-btn">INQUIRE NOW</a>
+</div>
+</div>
+
+<!-- BAPTISMAL -->
+<div class="package" id="baptismal">
+<h2>Baptismal Package</h2>
+<p class="price">P325/head + 10% Service Charge</p>
+
+<h3>Inclusions</h3>
+<ul>
+<li>Welcome Treats</li>
+<li>Garden Salad Bar</li>
+<li>Creamy Carbonara w/ Ham & Bacon</li>
+<li>Chicken Cordon Bleu</li>
+<li>Chinese Red Roast</li>
+<li>Fish Fillet w/ Carnation Tartar Sauce</li>
+<li>Buttered Vegetables with Quail Egg</li>
+<li>Steamed White Rice</li>
+<li>Fresh Fruit Platters</li>
+<li>Buko Pandan</li>
+<li>Bottomless Iced Tea</li>
+<li>Purified Water</li>
+<li>Tube Ice</li>
+</ul>
+
+<h3>Event Setup</h3>
+<ul>
+<li>Complete Setup & Decor</li>
+<li>Baptismal Table Motif of Your Choice</li>
+<li>Buffet Table with Elegant Centerpiece</li>
+<li>Stage Motif Linen Backdrop</li>
+<li>Dessert Table Dress-Up</li>
+</ul>
+
+<h3>Additional Inclusions</h3>
+<ul>
+<li>Balloons or Lighted Candles</li>
+<li>European-Chafing Dishes & Glassware</li>
+<li>Courteous Buffet Staff</li>
+<li>Free Use of Additional Warmers</li>
+<li>Continuous Purified Water Flow</li>
+<li>Elegant Table Settings</li>
+</ul>
+
+<div class="buttons">
+  <button onclick="goBack()">BACK</button>
+  <a href="inquire.html" class="inquire-btn">INQUIRE NOW</a>
+</div>
+</div>
+
+<!-- HOUSE BLESSING -->
+<div class="package" id="house">
+<h2>House Blessing Package</h2>
+<p class="price">P350/head + 10% Service Charge</p>
+
+<h3>Inclusions</h3>
+<ul>
+<li>Welcome Treats</li>
+<li>Garden Salad Bar</li>
+<li>Fettuccini Alfredo w/ Ham & Bacon</li>
+<li>Chicken Cordon Bleu</li>
+<li>Chinese Red Roast</li>
+<li>Fish Fillet w/ Carnation Tartar Sauce</li>
+<li>Buttered Vegetables with Quail Egg</li>
+<li>Steamed White Rice</li>
+<li>Fresh Fruit Platters</li>
+<li>Macaroni Salad</li>
+<li>Bottomless Iced Tea</li>
+<li>Purified Water</li>
+<li>Tube Ice</li>
+</ul>
+
+<h3>Event Setup</h3>
+<ul>
+<li>Complete Setup & Decor</li>
+<li>House Blessing Table Motif</li>
+<li>Buffet Table with Elegant Centerpiece</li>
+<li>Stage Motif Linen Backdrop</li>
+<li>Dessert Table Dress-Up</li>
+</ul>
+
+<h3>Additional Inclusions</h3>
+<ul>
+<li>Balloons or Lighted Candles</li>
+<li>European-Chafing Dishes & Glassware</li>
+<li>Courteous Buffet Staff</li>
+<li>Free Use of Additional Warmers</li>
+<li>Continuous Purified Water Flow</li>
+<li>Elegant Table Settings</li>
+</ul>
+
+<div class="buttons">
+  <button onclick="goBack()">BACK</button>
+  <a href="inquire.html" class="inquire-btn">INQUIRE NOW</a>
+</div>
+</div>
+
+<!-- GRADUATION -->
+<div class="package" id="graduation">
+<h2>Graduation Package</h2>
+<p class="price">P325/head + 10% Service Charge</p>
+
+<h3>Inclusions</h3>
+<ul>
+<li>Welcome Treats</li>
+<li>Garden Salad Bar</li>
+<li>Spaghetti Bolognese</li>
+<li>Chicken Cordon Bleu</li>
+<li>BBQ Ribs</li>
+<li>Grilled Fish w/ Lemon Butter Sauce</li>
+<li>Buttered Vegetables with Quail Egg</li>
+<li>Steamed White Rice</li>
+<li>Fresh Fruit Platters</li>
+<li>Buko Pandan</li>
+<li>Bottomless Iced Tea</li>
+<li>Purified Water</li>
+<li>Tube Ice</li>
+</ul>
+
+<h3>Event Setup</h3>
+<ul>
+<li>Complete Setup & Decor</li>
+<li>Graduation Table Motif</li>
+<li>Buffet Table with Elegant Centerpiece</li>
+<li>Stage Motif Linen Backdrop</li>
+<li>Dessert Table Dress-Up</li>
+</ul>
+
+<h3>Additional Inclusions</h3>
+<ul>
+<li>Balloons or Lighted Candles</li>
+<li>European-Chafing Dishes & Glassware</li>
+<li>Courteous Buffet Staff</li>
+<li>Free Use of Additional Warmers</li>
+<li>Continuous Purified Water Flow</li>
+<li>Elegant Table Settings</li>
+</ul>
+
+<div class="buttons">
+  <button onclick="goBack()">BACK</button>
+  <a href="inquire.html" class="inquire-btn">INQUIRE NOW</a>
+</div>
+</div>
+
+<!-- ANNIVERSARY -->
+<div class="package" id="anniversary">
+<h2>Anniversary Package</h2>
+<p class="price">P325/head + 10% Service Charge</p>
+
+<h3>Inclusions</h3>
+<ul>
+<li>Welcome Treats</li>
+<li>Garden Salad Bar</li>
+<li>Creamy Carbonara w/ Ham & Bacon</li>
+<li>Chicken Cordon Bleu</li>
+<li>Chinese Red Roast</li>
+<li>Seafood Paella</li>
+<li>Buttered Vegetables with Quail Egg</li>
+<li>Steamed White Rice</li>
+<li>Fresh Fruit Platters</li>
+<li>Buko Pandan</li>
+<li>Bottomless Iced Tea</li>
+<li>Purified Water</li>
+<li>Tube Ice</li>
+</ul>
+
+<h3>Event Setup</h3>
+<ul>
+<li>Complete Setup & Decor</li>
+<li>Anniversary Table Motif</li>
+<li>Buffet Table with Elegant Centerpiece</li>
+<li>Stage Motif Linen Backdrop</li>
+<li>Dessert Table Dress-Up</li>
+</ul>
+
+<h3>Additional Inclusions</h3>
+<ul>
+<li>Balloons or Lighted Candles</li>
+<li>European-Chafing Dishes & Glassware</li>
+<li>Courteous Buffet Staff</li>
+<li>Free Use of Additional Warmers</li>
+<li>Continuous Purified Water Flow</li>
+<li>Elegant Table Settings</li>
+</ul>
+
+<div class="buttons">
+  <button onclick="goBack()">BACK</button>
+  <a href="inquire.html" class="inquire-btn">INQUIRE NOW</a>
+</div>
+</div>
+
+<!-- CORPORATE -->
+<div class="package" id="corporate">
+<h2>Corporate Event Package</h2>
+<p class="price">P350/head + 10% Service Charge</p>
+
+<h3>Inclusions</h3>
+<ul>
+<li>Welcome Treats</li>
+<li>Garden Salad Bar</li>
+<li>Spaghetti Bolognese</li>
+<li>Chicken Cordon Bleu</li>
+<li>BBQ Ribs</li>
+<li>Grilled Fish w/ Lemon Butter Sauce</li>
+<li>Buttered Vegetables with Quail Egg</li>
+<li>Steamed White Rice</li>
+<li>Fresh Fruit Platters</li>
+<li>Macaroni Salad</li>
+<li>Bottomless Iced Tea</li>
+<li>Purified Water</li>
+<li>Tube Ice</li>
+</ul>
+
+<h3>Event Setup</h3>
+<ul>
+<li>Complete Setup & Decor</li>
+<li>Corporate Event Table Motif</li>
+<li>Buffet Table with Elegant Centerpiece</li>
+<li>Stage Motif Linen Backdrop</li>
+<li>Dessert Table Dress-Up</li>
+</ul>
+
+<h3>Additional Inclusions</h3>
+<ul>
+<li>Balloons or Lighted Candles</li>
+<li>European-Chafing Dishes & Glassware</li>
+<li>Courteous Buffet Staff</li>
+<li>Free Use of Additional Warmers</li>
+<li>Continuous Purified Water Flow</li>
+<li>Elegant Table Settings</li>
+</ul>
+
+<div class="buttons">
+  <button onclick="goBack()">BACK</button>
+  <a href="inquire.html" class="inquire-btn">INQUIRE NOW</a>
+</div>
+</div>
+
+</section>
+
+</main>
+
+<footer class="footer-box">
+<div class="footer-left">
+<h2>GENE 3’S CATERING SERVICE</h2>
+<p>Tambubong San Rafael Bulacan</p>
+<p>gene3s@gmail.com</p>
+<p>091-2354-2562</p>
+</div>
+</footer>
+
+<script>
+const packages = document.querySelectorAll(".package");
+const eventList = document.getElementById("event-list");
+
+packages.forEach(p => p.style.display = "none");
+
+function showPackage(id) {
+  eventList.style.display = "none";
+  packages.forEach(p => p.style.display = "none");
+  document.getElementById(id).style.display = "block";
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  packages.forEach(p => p.style.display = "none");
+  eventList.style.display = "flex";
+}
+</script>
+
+<script>
+// Highlight current navbar link
+const navLinks = document.querySelectorAll(".nav-links a");
+const currentPage = window.location.pathname.split("/").pop(); // gets current filename
+
+navLinks.forEach(link => {
+    // Remove previous active if any
+    link.classList.remove("active");
+    
+    // Add active if link matches current page
+    if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+    }
+});
+</script>
+
+
+</body>
+</html>

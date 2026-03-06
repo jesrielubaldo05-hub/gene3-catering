@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inquire | Gene 3's Catering</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+<style>
+.ty-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;}
+.ty-overlay.show{display:flex;}
+.ty-box{background:#fff;border-radius:16px;padding:50px 40px;text-align:center;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:popIn 0.3s ease;}
+@keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.ty-box .check{font-size:60px;margin-bottom:16px;}
+.ty-box h2{font-size:28px;color:#900202;font-family:'Playfair Display',serif;margin-bottom:10px;}
+.ty-box p{color:#666;font-size:15px;line-height:1.6;margin-bottom:24px;}
+.ty-box .ok-btn{background:#900202;color:#fff;border:none;padding:12px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;}
+.ty-box .ok-btn:hover{background:#6b0000;}
+</style>
+</head>
+
+<body>
+
+<header class="nav-box">
+  <nav class="navbar">
+    <div class="logo">
+      <div class="main-name">Gene 3's</div>
+      <div class="sub-name">Catering Service</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="events.html">Event</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="inquire.html" class="active">Inquire</a></li>
+      <li><a href="contacts.html">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="content-area inquire-page">
+
+  <!-- STEP 1: Choice Screen -->
+  <section id="choiceScreen" class="choice-screen">
+    <h1 class="inquire-title">Send Inquiry</h1>
+    <div class="choice-buttons">
+      <button class="choice-btn book-btn" onclick="openForm('book')">BOOK</button>
+      <button class="choice-btn reserve-btn" onclick="openForm('reserve')">RESERVE</button>
+    </div>
+  </section>
+
+  <!-- BOOK FORM -->
+  <section id="bookForm" class="form-screen">
+    <div class="form-header">
+      <span class="back-arrow" onclick="goBack()">&#8592;</span>
+      <h2>Book Event</h2>
+    </div>
+    <form class="inquiry-form">
+      <label>Full Name</label>
+      <input type="text" id="b_name" required>
+
+      <label>Email</label>
+      <input type="email" id="b_email" required>
+
+      <label>Phone Number</label>
+      <input type="text" id="b_contact" required>
+
+      <label>Address</label>
+      <input type="text" id="b_address">
+
+      <label>Event Type</label>
+      <select id="b_event_type" required>
+        <option value="">Select Occasion</option>
+        <option>Wedding</option>
+        <option>Birthday</option>
+        <option>Baptismal</option>
+        <option>House Blessing</option>
+        <option>Graduation</option>
+        <option>Anniversary</option>
+        <option>Corporate Event</option>
+      </select>
+
+      <label>Event Date</label>
+      <input type="date" id="b_event_date">
+
+      <label>Event Venue</label>
+      <input type="text" id="b_venue">
+
+      <label>Number of Guests</label>
+      <input type="number" id="b_guests">
+
+      <label>Message</label>
+      <textarea rows="4" id="b_message"></textarea>
+
+      <div class="terms">
+        <input type="checkbox" required>
+        <label>I agree to the <a href="terms_and_conditions.html">Terms &amp; Conditions</a></label>
+      </div>
+
+      <p class="note">
+        <strong>NOTE:</strong> We respect your privacy and are committed to protecting your information. Your data will remain within our team. We will also send emails &amp; promotions from time to time. You may unsubscribe anytime.
+      </p>
+
+      <button type="button" class="submit-btn" id="bookSubmitBtn">BOOK NOW!</button>
+    </form>
+  </section>
+
+  <!-- RESERVE FORM -->
+  <section id="reserveForm" class="form-screen">
+    <div class="form-header">
+      <span class="back-arrow" onclick="goBack()">&#8592;</span>
+      <h2>Reserve Event</h2>
+    </div>
+    <form class="inquiry-form">
+      <label>Full Name</label>
+      <input type="text" id="r_name" required>
+
+      <label>Email</label>
+      <input type="email" id="r_email" required>
+
+      <label>Phone Number</label>
+      <input type="text" id="r_contact" required>
+
+      <label>Address</label>
+      <input type="text" id="r_address">
+
+      <label>Event Type</label>
+      <select id="r_event_type" required>
+        <option value="">Select Occasion</option>
+        <option>Wedding</option>
+        <option>Birthday</option>
+        <option>Baptismal</option>
+        <option>House Blessing</option>
+        <option>Graduation</option>
+        <option>Anniversary</option>
+        <option>Corporate Event</option>
+      </select>
+
+      <label>Event Date</label>
+      <input type="date" id="r_event_date">
+
+      <label>Event Venue</label>
+      <input type="text" id="r_venue">
+
+      <label>Number of Guests</label>
+      <input type="number" id="r_guests">
+
+      <label>Down Payment Amount</label>
+      <input type="number" id="r_down_payment" placeholder="&#8369;">
+
+      <label>Message</label>
+      <textarea rows="4" id="r_message"></textarea>
+
+      <div class="terms">
+        <input type="checkbox" required>
+        <label>I agree to the <a href="terms_and_conditions.html">Terms &amp; Conditions</a></label>
+      </div>
+
+      <p class="note">
+        <strong>NOTE:</strong> We respect your privacy and are committed to protecting your information. Your data will remain within our team. We will also send emails &amp; promotions from time to time. You may unsubscribe anytime.
+      </p>
+
+      <button type="button" class="submit-btn" id="reserveSubmitBtn">RESERVE NOW!</button>
+    </form>
+  </section>
+
+</main>
+
+<footer class="footer-box">
+  <div class="footer-left">
+    <h2>GENE 3'S CATERING SERVICE</h2>
+    <p>Tambubong San Rafael Bulacan</p>
+    <p>gene3s@gmail.com</p>
+    <p>091-2354-2562</p>
+  </div>
+</footer>
+
+<!-- Thank You Popup -->
+<div class="ty-overlay" id="tyPopup">
+  <div class="ty-box">
+    <div class="check">&#10003;</div>
+    <h2>Thank You!</h2>
+    <p id="tyMsg">Your submission has been received!</p>
+    <button class="ok-btn" onclick="window.location.href='index.html'">OK</button>
+  </div>
+</div>
+
+<script>
+function openForm(type) {
+  document.getElementById("choiceScreen").style.display = "none";
+  document.getElementById("bookForm").style.display = "none";
+  document.getElementById("reserveForm").style.display = "none";
+  if (type === "book") {
+    document.getElementById("bookForm").style.display = "block";
+  } else {
+    document.getElementById("reserveForm").style.display = "block";
+  }
+}
+
+function goBack() {
+  document.getElementById("bookForm").style.display = "none";
+  document.getElementById("reserveForm").style.display = "none";
+  document.getElementById("choiceScreen").style.display = "block";
+}
+
+function showThankYou(msg) {
+  document.getElementById("tyMsg").textContent = msg;
+  document.getElementById("tyPopup").classList.add("show");
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const _supa = window.supabase.createClient(
+  "https://scgptbeecanjuboztweb.supabase.co",
+  "sb_publishable_u-VSj6fOWDiipNrC9jZMgw_Oe4AZ_eX"
+);
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  document.getElementById("bookSubmitBtn").addEventListener("click", async function() {
+    var name    = document.getElementById("b_name").value;
+    var email   = document.getElementById("b_email").value;
+    var contact = document.getElementById("b_contact").value;
+    if (!name || !email || !contact) { alert("Please fill in required fields."); return; }
+
+    var result = await _supa.from("inquiries").insert([{
+      name: name,
+      email: email,
+      contact: contact,
+      address:    document.getElementById("b_address").value,
+      event_type: document.getElementById("b_event_type").value,
+      event_date: document.getElementById("b_event_date").value || null,
+      venue:      document.getElementById("b_venue").value,
+      guests:     parseInt(document.getElementById("b_guests").value) || 0,
+      message:    document.getElementById("b_message").value,
+      status:     "Book"
+    }]);
+
+    if (result.error) { alert("Booking failed: " + result.error.message); console.error(result.error); return; }
+    showThankYou("Your booking has been submitted! We will contact you shortly.");
+    document.querySelectorAll("#bookForm input:not([type=checkbox]), #bookForm select, #bookForm textarea").forEach(function(el){ el.value = ""; });
+    goBack();
+  });
+
+  document.getElementById("reserveSubmitBtn").addEventListener("click", async function() {
+    var name    = document.getElementById("r_name").value;
+    var email   = document.getElementById("r_email").value;
+    var contact = document.getElementById("r_contact").value;
+    if (!name || !email || !contact) { alert("Please fill in required fields."); return; }
+
+    var result = await _supa.from("inquiries").insert([{
+      name: name,
+      email: email,
+      contact: contact,
+      address:    document.getElementById("r_address").value,
+      event_type: document.getElementById("r_event_type").value,
+      event_date: document.getElementById("r_event_date").value || null,
+      venue:      document.getElementById("r_venue").value,
+      guests:     parseInt(document.getElementById("r_guests").value) || 0,
+      message:    document.getElementById("r_message").value,
+      status:     "Reserve"
+    }]);
+
+    if (result.error) { alert("Reservation failed: " + result.error.message); console.error(result.error); return; }
+    showThankYou("Your reservation has been submitted! We will contact you shortly.");
+    document.querySelectorAll("#reserveForm input:not([type=checkbox]), #reserveForm select, #reserveForm textarea").forEach(function(el){ el.value = ""; });
+    goBack();
+  });
+
+});
+</script>
+
+<script>
+// Highlight current navbar link
+const navLinks = document.querySelectorAll(".nav-links a");
+const currentPage = window.l
+.pop();
+navLinks.forEach(function(link) {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+    }
+});
+</script>
+
+</body>
+</html>

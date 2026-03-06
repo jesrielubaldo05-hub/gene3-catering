@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Gene 3's Catering</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="menu-page">
+    <div class="main-container">
+        <header class="nav-box">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="main-name">Gene 3's</div>
+                    <div class="sub-name">Catering Service</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="events.html">Event</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="inquire.html">Inquire</a></li>
+                    <li><a href="contacts.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="menu-container">
+            <section class="menu-hero">
+                <h1 class="explore-title">Explore our packages</h1>
+                <div class="menu-hero-image">
+                    <img src="image/image1.png" alt="Catering Packages">
+                </div>
+            </section>
+
+            <section class="packages-section">
+                <h2 class="packages-title">FOOD PACKAGES</h2>
+
+                <div class="packages-grid">
+                    <div class="package1-box">
+                        <h3>Package 1</h3>
+                        <p class="price1">P325.00/head + 10% Service Charge</p>
+                        <ul class="food-list1">
+                            <li>Welcome Treats</li>
+                            <li>Garden Salad Bar</li>
+                            <li>Creamy Carbonara w/Ham & Bacon</li>
+                            <li>Chicken Cordon Bleu</li>
+                            <li>Chinese Red Roast</li>
+                            <li>Roast Beef w/ Mushroom Gravy</li>
+                            <li>Buttered vegetable with quail egg</li>
+                            <li>Steamed white Rice</li>
+                            <li>Fresh Fruit Platters</li>
+                            <li>Macaroni Salad</li>
+                            <li>Bottomless Iced Tea</li>
+                            <li>Purified Water</li>
+                            <li>Tube Ice</li>
+                        </ul>
+                    </div>
+
+                    <div class="package2-box">
+                        <h3>Package 2</h3>
+                        <p class="price2">P325.00/head + 10% Service Charge</p>
+                        <ul class="food-list2">
+                            <li>Welcome Treats</li>
+                            <li>Garden Salad Bar</li>
+                            <li>Fettuccini Alfredo w/ Ham & Bacon</li>
+                            <li>Chicken Cordon Bleu</li>
+                            <li>Chinese Red Roast</li>
+                            <li>Fish Fillet w/ Carnation Tartar Sauce</li>
+                            <li>Buttered vegetable with quail egg</li>
+                            <li>Steamed white Rice</li>
+                            <li>Fresh Fruit Platters</li>
+                            <li>Buko Pandan</li>
+                            <li>Bottomless Iced Tea</li>
+                            <li>Purified Water</li>
+                            <li>Tube Ice</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="inclusions-section">
+                <h2 class="inclusions-title">INCLUSIONS</h2>
+                <div class="inclusions-grid">
+                    <ul class="inclusions-left">
+                        <li>Complete set-up</li>
+                        <li>Motif of your choice</li>
+                        <li>Dress-up Chairs and Tables</li>
+                        <li>Buffet table with elegant center piece</li>
+                        <li>Catering Amenities and inclusion</li>
+                        <li>Stage motif linen backdrop</li>
+                        <li>Dress-up Table for desserts</li>
+                    </ul>
+                    <ul class="inclusions-right">
+                        <li>Dress-up Gift table</li>
+                        <li>Balloons or lighted candles for center piece</li>
+                        <li>European-Chafing dish glass wares and others</li>
+                        <li>Courteous Buffeters/ waiter’s and waitresses</li>
+                        <li>Free use of additional extra warmer</li>
+                        <li>Continuous purified flowing water</li>
+                    </ul>
+                </div>
+                <div class="inquire-button-container">
+                    <a href="inquire.html" class="inquire-button">Inquire Now</a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer-box">
+            <div class="footer-left">
+                <h2 class="footer-logo">GENE 3’S CATERING SERVICE</h2>
+                <p>Tambubong san rafael Bulacan</p>
+                <p>gene3s@gmail.com</p>
+                <p>091-2354-2562</p>
+            </div>
+            <div class="footer-right-links">
+                <a href="FAQS.html">FAQS</a>
+                <a href="terms_and_conditions.html">TERMS & CONDITIONS</a>
+                <a href="#">PRIVACY POLICY</a>
+            </div>
+        </footer>
+    </div>
+
+<script>
+// Highlight current navbar link
+const navLinks = document.querySelectorAll(".nav-links a");
+const currentPage = window.location.pathname.split("/").pop(); // gets current filename
+
+navLinks.forEach(link => {
+    // Remove previous active if any
+    link.classList.remove("active");
+    
+    // Add active if link matches current page
+    if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+    }
+});
+</script>
+
+
+</body>
+</html>

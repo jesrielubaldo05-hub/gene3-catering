@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Gene 3's Catering Service</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+    .ty-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;}
+    .ty-overlay.show{display:flex;}
+    .ty-box{background:#fff;border-radius:16px;padding:50px 40px;text-align:center;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:popIn 0.3s ease;}
+    @keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .ty-box .check{font-size:60px;margin-bottom:16px;}
+    .ty-box h2{font-size:28px;color:#900202;font-family:'Playfair Display',serif;margin-bottom:10px;}
+    .ty-box p{color:#666;font-size:15px;line-height:1.6;margin-bottom:24px;}
+    .ty-box .ok-btn{background:#900202;color:#fff;border:none;padding:12px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;}
+    .ty-box .ok-btn:hover{background:#6b0000;}
+    </style>
+</head>
+
+<body>
+
+<header class="nav-box">
+    <nav class="navbar">
+        <div class="logo">
+            <div class="main-name">Gene 3's</div>
+            <div class="sub-name">Catering Service</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="events.html">Event</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="inquire.html">Inquire</a></li>
+            <li><a href="contacts.html">Contact Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="content-area">
+    <div class="inquire-wrapper">
+
+        <a href="events.html" class="back-btn">←</a>
+
+        <h1 class="inquire-title">Plan your occasion with us!</h1>
+        <p class="inquire-desc">
+            To help you craft the best plan for your event, please share with us
+            some details about your event by filling up the inquiry form below.
+        </p>
+
+        <form class="inquiry-form redesigned">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="text" id="contact" placeholder="Contact Number" required>
+            <input type="text" id="address" placeholder="Address">
+
+            <div class="form-row">
+                <select id="event_type" required>
+                    <option value="">Occasion</option>
+                    <option>Wedding</option>
+                    <option>Birthday</option>
+                    <option>Baptismal</option>
+                    <option>House Blessing</option>
+                    <option>Graduation</option>
+                    <option>Anniversary</option>
+                    <option>Corporate Event</option>
+                </select>
+                <input type="date" id="event_date">
+            </div>
+
+            <textarea rows="4" id="message" placeholder="Additional Message"></textarea>
+
+            <div class="btn-group">
+                <button type="submit" class="secondary-btn">SEND</button>
+            </div>
+        </form>
+
+    </div>
+</main>
+
+<footer class="footer-box">
+    <div class="footer-left">
+        <h2 class="footer-logo">GENE 3'S CATERING SERVICE</h2>
+        <p>Tambubong San Rafael Bulacan</p>
+        <p>gene3s@gmail.com</p>
+        <p>091-2354-2562</p>
+    </div>
+</footer>
+
+<!-- Thank You Popup -->
+<div class="ty-overlay" id="tyPopup">
+  <div class="ty-box">
+    <div class="check">&#10003;</div>
+    <h2>Thank You!</h2>
+    <p id="tyMsg">Your message has been sent!</p>
+    <button class="ok-btn" onclick="window.location.href='index.html'">OK</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const client = window.supabase.createClient(
+    "https://scgptbeecanjuboztweb.supabase.co",
+    "sb_publishable_u-VSj6fOWDiipNrC9jZMgw_Oe4AZ_eX"
+);
+
+function showThankYou(msg) {
+    document.getElementById("tyMsg").textContent = msg;
+    document.getElementById("tyPopup").classList.add("show");
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    document.querySelector(".inquiry-form").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const name       = document.getElementById("name").value.trim();
+        const email      = document.getElementById("email").value.trim();
+        const contact    = document.getElementById("contact").value.trim();
+        const address    = document.getElementById("address").value.trim();
+        const event_type = document.getElementById("event_type").value;
+        const event_date = document.getElementById("event_date").value;
+        const message    = document.getElementById("message").value.trim();
+
+        if (!name || !email || !contact || !event_type) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        const { error } = await client
+            .from("contacts")
+            .insert([{ name, email, contact, address, event_type, event_date, message }]);
+
+        if (error) {
+            alert("Submission failed: " + error.message);
+            console.error(error);
+            return;
+        }
+
+        showThankYou("Thank you! We've received your message and will get back to you soon.");
+
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("contact").value = "";
+        document.getElementById("address").value = "";
+        document.getElementById("event_type").value = "";
+        document.getElementById("event_date").value = "";
+        document.getElementById("message").value = "";
+    });
+
+});
+</script>
+
+<script>
+// Highlight current navbar link
+const navLinks = document.querySelectorAll(".nav-links a");
+const currentPage = window.location
+.pop();
+navLinks.forEach(function(link) {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Gene 3's Catering</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="about-page">
+    <div class="main-container">
+        <header class="nav-box">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="main-name">Gene 3's</div>
+                    <div class="sub-name">Catering Service</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="events.html">Event</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="inquire.html">Inquire</a></li>
+                    <li><a href="contacts.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="content-area1">
+            <section class="about-hero">
+                <h2 class="company-name">GENE 3'S CATERING SERVICE</h2>
+                <h1 class="hero-tagline">
+                    We are a passionate team dedicated to delivering unforgettable culinary experiences for all types of events.
+                </h1>
+            </section>
+
+            <div class="vm-row">
+                <section class="vm-image-section">
+                    <img src="image/buffet.png" alt="Vision and Mission">
+                </section>
+                <section class="vision-mission-section">
+                    <h2 class="vm-title">Vision & Mission</h2>
+                    <p class="vm-text">
+                        <strong>Vision:</strong> To be the preferred catering service, delivering exceptional culinary experiences and outstanding customer satisfaction for every occasion.<br><br>
+                        <strong>Mission:</strong> To provide high-quality, delicious meals and seamless catering services with professionalism, efficiency, and a commitment to customer delight.
+                    </p>
+                </section>       
+            </div>  
+
+            <section class="history-content">
+                <h2 class="history-title">Company History</h2>
+                <p class="history-text">
+                    Gene 3's Catering started from humble beginnings with a husband and wife duo, both working hard to make ends meet. They began by selling home-cooked meals, with a special focus on their signature dish: okoy. Their dedication and love for food quickly made their meals a hit, drawing loyal customers.<br><br>
+                    The couple's strong work ethic and passion for food allowed them to grow their business. Along the way, they were blessed with three children, all sharing their love for creativity and entrepreneurship. The family is also known for their musical talents.<br><br>
+                    Their middle child started a successful balloon designing business, complementing the catering service and creating unforgettable events. Today, Gene 3's Catering stands as a testament to hard work, love, and family.
+                </p>
+                <div class="vm-row">
+                <section class="vm-image-section">
+                    <img src="image/gene3s-logo-banner.png" alt="Vision and Mission">
+            </section>
+        </main>
+
+        <footer class="footer-box">
+            <div class="footer-left">
+                <h2 class="footer-logo">GENE 3’S CATERING SERVICE</h2>
+                <p>Tambubong san rafael Bulacan</p>
+                <p>gene3s@gmail.com</p>
+                <p>091-2354-2562</p>
+            </div>
+            <div class="footer-right-links">
+                <a href="FAQS.html">FAQS</a>
+                <a href="terms_and_conditions.html">TERMS & CONDITIONS</a>
+                <a href="#">PRIVACY POLICY</a>
+            </div>
+        </footer>
+    </div>
+
+<script>
+// Highlight current navbar link
+const navLinks = document.querySelectorAll(".nav-links a");
+const currentPage = window.location.pathname.split("/").pop(); // gets current filename
+
+navLinks.forEach(link => {
+    // Remove previous active if any
+    link.classList.remove("active");
+    
+    // Add active if link matches current page
+    if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+    }
+});
+</script>
+
+
+</body>
+</html>
