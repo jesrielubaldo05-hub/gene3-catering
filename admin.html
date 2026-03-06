@@ -1106,20 +1106,46 @@
         }
 
         // Checkbox functionality
-        document.querySelectorAll('.checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function() {
-                this.classList.toggle('checked');
-                if (this.classList.contains('checked')) {
-                    this.style.background = '#c62828';
-                    this.style.border = '2px solid #c62828';
-                    this.innerHTML = '<i class="fas fa-check" style="color: white; font-size: 12px;"></i>';
-                } else {
-                    this.style.background = 'transparent';
-                    this.style.border = '2px solid #ddd';
-                    this.innerHTML = '';
-                }
-            });
+        // Checkbox handler - delegated so it works on dynamically loaded rows
+        document.addEventListener('click', async function(e) {
+            const checkbox = e.target.closest('.checkbox');
+            if (!checkbox) return;
+            const id = checkbox.getAttribute('data-id');
+            if (!id) return;
+            checkbox.classList.toggle('checked');
+            const isChecked = checkbox.classList.contains('checked');
+            if (isChecked) {
+                checkbox.style.background = '#c62828';
+                checkbox.style.border = '2px solid #c62828';
+                checkbox.innerHTML = '<i class="fas fa-check" style="color:white;font-size:12px;"></i>';
+                const row = checkbox.closest('tr');
+                if (row) { row.style.transition = 'opacity 0.4s'; row.style.opacity = '0.4'; }
+            } else {
+                checkbox.style.background = 'transparent';
+                checkbox.style.border = '2px solid #ddd';
+                checkbox.innerHTML = '';
+                const row = checkbox.closest('tr');
+                if (row) row.style.opacity = '1';
+            }
+            // Save to Supabase
+            await _supa.from('inquiries').update({ is_read: isChecked }).eq('id', id);
+            updateBellFromChecked();
         });
+
+
+        // Update bell badge based on unchecked rows
+        function updateBellFromChecked() {
+            const allRows = document.querySelectorAll('#booking .data-table tbody tr, #reservation .data-table tbody tr');
+            const unchecked = Array.from(allRows).filter(row => {
+                const cb = row.querySelector('.checkbox');
+                return cb && !cb.classList.contains('checked');
+            });
+            const badge = document.getElementById('bellBadge');
+            if (badge) {
+                badge.textContent = unchecked.length;
+                badge.style.display = unchecked.length > 0 ? 'flex' : 'none';
+            }
+        }
 
         // Search functionality
         document.querySelector('.search-bar input').addEventListener('input', function(e) {
@@ -1247,8 +1273,12 @@ async function loadBookings() {
   tbody.innerHTML = "";
   if (!data.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:30px;color:#999">No bookings yet</td></tr>'; return; }
   data.forEach(r => {
-    tbody.innerHTML += `<tr>
-      <td><input type="checkbox" class="checkbox"></td>
+    const checked = r.is_read ? 'checked' : '';
+    const checkedStyle = r.is_read ? 'background:#c62828;border:2px solid #c62828;' : '';
+    const checkedIcon = r.is_read ? '<i class="fas fa-check" style="color:white;font-size:12px;"></i>' : '';
+    const rowOpacity = r.is_read ? 'opacity:0.4;' : '';
+    tbody.innerHTML += `<tr style="${rowOpacity}" data-id="${r.id}">
+      <td><div class="checkbox ${checked}" style="${checkedStyle}" data-id="${r.id}">${checkedIcon}</div></td>
       <td><div class="avatar" style="width:32px;height:32px;border-radius:50%;background:#900202;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">${r.name?r.name[0].toUpperCase():"?"}</div></td>
       <td>${r.name||""}</td>
       <td>${r.event_date||""}</td>
@@ -1258,6 +1288,7 @@ async function loadBookings() {
       <td>${r.message||"-"}</td>
     </tr>`;
   });
+  updateBellFromChecked();
 }
 
 async function loadReservations() {
@@ -1268,8 +1299,12 @@ async function loadReservations() {
   tbody.innerHTML = "";
   if (!data.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:30px;color:#999">No reservations yet</td></tr>'; return; }
   data.forEach(r => {
-    tbody.innerHTML += `<tr>
-      <td><input type="checkbox" class="checkbox"></td>
+    const checked = r.is_read ? 'checked' : '';
+    const checkedStyle = r.is_read ? 'background:#c62828;border:2px solid #c62828;' : '';
+    const checkedIcon = r.is_read ? '<i class="fas fa-check" style="color:white;font-size:12px;"></i>' : '';
+    const rowOpacity = r.is_read ? 'opacity:0.4;' : '';
+    tbody.innerHTML += `<tr style="${rowOpacity}" data-id="${r.id}">
+      <td><div class="checkbox ${checked}" style="${checkedStyle}" data-id="${r.id}">${checkedIcon}</div></td>
       <td><div class="avatar" style="width:32px;height:32px;border-radius:50%;background:#900202;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">${r.name?r.name[0].toUpperCase():"?"}</div></td>
       <td>${r.name||""}</td>
       <td>${r.event_date||""}</td>
@@ -1279,6 +1314,7 @@ async function loadReservations() {
       <td>${r.message||"-"}</td>
     </tr>`;
   });
+  updateBellFromChecked();
 }
 
 function buildFeedbackCard(r) {
@@ -1302,6 +1338,10 @@ function buildFeedbackCard(r) {
     }
   }
 
+  const replyBubble = r.admin_reply
+    ? '<div class="admin-reply" style="margin-top:12px;background:#fff5f5;border-left:3px solid #900202;padding:10px 14px;border-radius:0 8px 8px 0;"><small style="color:#900202;font-weight:700;">Admin Reply</small><p style="margin:4px 0 0;color:#555;font-size:14px;">' + r.admin_reply + '</p></div>'
+    : '';
+
   card.innerHTML =
     '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">' +
       '<div style="display:flex;align-items:center;gap:12px;">' +
@@ -1318,7 +1358,8 @@ function buildFeedbackCard(r) {
       '</div>' +
     '</div>' +
     '<p style="color:#555;margin:0;line-height:1.6;">' + (r.message||"") + '</p>' +
-    (mediaHTML ? '<div style="margin-top:10px;">' + mediaHTML + '</div>' : '');
+    (mediaHTML ? '<div style="margin-top:10px;">' + mediaHTML + '</div>' : '') +
+    replyBubble;
 
   // Store review data on card for reply
   card.querySelector(".reply-btn").addEventListener("click", function() {
@@ -1358,23 +1399,21 @@ function openReply(id, name, message) {
   openModal("replyModal");
 }
 
-function sendReply() {
+async function sendReply() {
   const text = document.getElementById("replyText").value.trim();
   if (!text) { alert("Please write a reply."); return; }
 
-  // Store reply in memory keyed by review id
-  if (!window._replies) window._replies = {};
-  window._replies[_replyReview.id] = text;
+  // Save reply to Supabase
+  const { error } = await _supa.from("reviews").update({ admin_reply: text }).eq("id", _replyReview.id);
+  if (error) { alert("Failed to save reply: " + error.message); return; }
 
-  // Find the card and show the reply bubble below the message
+  // Show reply bubble on card immediately
   const cards = document.querySelectorAll("#feedbacks .feedback-card");
   cards.forEach(function(card) {
     const btn = card.querySelector(".reply-btn");
     if (btn && btn.getAttribute("data-rid") == _replyReview.id) {
-      // Remove existing reply bubble if any
       const existing = card.querySelector(".admin-reply");
       if (existing) existing.remove();
-      // Add reply bubble
       const bubble = document.createElement("div");
       bubble.className = "admin-reply";
       bubble.style.cssText = "margin-top:12px;background:#fff5f5;border-left:3px solid #900202;padding:10px 14px;border-radius:0 8px 8px 0;";

@@ -15,6 +15,9 @@
 .ty-box p{color:#666;font-size:15px;line-height:1.6;margin-bottom:24px;}
 .ty-box .ok-btn{background:#900202;color:#fff;border:none;padding:12px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;}
 .ty-box .ok-btn:hover{background:#6b0000;}
+.admin-reply{margin-top:12px;background:#fff5f5;border-left:3px solid #900202;padding:10px 14px;border-radius:0 8px 8px 0;}
+.admin-reply small{color:#900202;font-weight:700;display:block;margin-bottom:4px;}
+.admin-reply p{margin:0;color:#555;font-size:14px;line-height:1.5;}
 </style>
 </head>
 
@@ -156,7 +159,10 @@ async function loadReviews() {
         media = '<video controls src="' + r.media_url + '" style="max-width:100%;border-radius:8px;margin-top:10px;"></video>';
       }
     }
-    list.innerHTML += '<div class="review-card"><div class="avatar"></div><div class="review-content"><h3>' + (r.name || "Anonymous") + '</h3><span class="verified">Verified Customer</span><div class="stars">' + filled + empty + '</div><p>' + (r.message || "") + '</p>' + media + '</div></div>';
+    var adminReply = r.admin_reply
+      ? '<div class="admin-reply"><small>Response from Gene 3\'s Catering</small><p>' + r.admin_reply + '</p></div>'
+      : '';
+    list.innerHTML += '<div class="review-card"><div class="avatar"></div><div class="review-content"><h3>' + (r.name || "Anonymous") + '</h3><span class="verified">Verified Customer</span><div class="stars">' + filled + empty + '</div><p>' + (r.message || "") + '</p>' + media + adminReply + '</div></div>';
   });
 }
 
@@ -179,20 +185,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // File upload label update — keep input intact
+  // File upload label update
   document.getElementById("photoInput").addEventListener("change", function() {
     if (this.files.length > 0) {
+      var self = this;
       document.getElementById("photoLabel").childNodes.forEach(function(node) {
-        if (node.nodeType === 3) node.textContent = "📷 " + this.files[0].name;
-      }.bind(this));
+        if (node.nodeType === 3) node.textContent = "📷 " + self.files[0].name;
+      });
     }
   });
 
   document.getElementById("videoInput").addEventListener("change", function() {
     if (this.files.length > 0) {
+      var self = this;
       document.getElementById("videoLabel").childNodes.forEach(function(node) {
-        if (node.nodeType === 3) node.textContent = "🎥 " + this.files[0].name;
-      }.bind(this));
+        if (node.nodeType === 3) node.textContent = "🎥 " + self.files[0].name;
+      });
     }
   });
 
@@ -256,13 +264,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <script>
 // Highlight current navbar link
 const navLinks = document.querySelectorAll(".nav-links a");
-const currentPage = windo
-.pop();
+const currentPage = window.location.pathname.split("/").pop();
 navLinks.forEach(function(link) {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === currentPage) {
-        link.classList.add("active");
-    }
+  link.classList.remove("active");
+  if (link.getAttribute("href") === currentPage) {
+    link.classList.add("active");
+  }
 });
 </script>
 
