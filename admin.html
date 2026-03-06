@@ -837,6 +837,18 @@
             <!-- Payments Page -->
             <div class="page" id="payments">
                 <h1 class="page-title">Payment</h1>
+
+                <!-- Total Revenue Card -->
+                <div style="background:linear-gradient(135deg,#900202,#1a0000);border-radius:16px;padding:28px 32px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 8px 24px rgba(144,2,2,0.25);">
+                  <div>
+                    <p style="color:rgba(255,255,255,0.7);font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Total Revenue (Down Payments)</p>
+                    <p id="totalRevenue" style="color:#fff;font-size:2rem;font-weight:900;letter-spacing:1px;">PHP 0.00</p>
+                  </div>
+                  <div style="width:60px;height:60px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-peso-sign" style="color:#fff;font-size:24px;"></i>
+                  </div>
+                </div>
+
                 <div class="table-container">
                     <table class="data-table">
                         <thead>
@@ -1300,6 +1312,12 @@ async function loadPayments() {
   const tbody = document.getElementById("paymentsTbody");
   if (!tbody) return;
   tbody.innerHTML = "";
+
+  // Calculate total revenue from down payments
+  const totalRevenue = (data || []).reduce((sum, r) => sum + (parseFloat(r.down_payment) || 0), 0);
+  const revenueEl = document.getElementById("totalRevenue");
+  if (revenueEl) revenueEl.textContent = "PHP " + totalRevenue.toLocaleString("en-PH", {minimumFractionDigits:2});
+
   if (!data.length) {
     tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:60px;color:#999"><i class="fas fa-receipt" style="font-size:48px;display:block;margin-bottom:15px;color:#ddd;"></i>No payment records available</td></tr>';
     return;
