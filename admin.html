@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gene 3's Catering Service - Admin Dashboard</title>
+    <title>Gene's Catering Service - Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -1249,30 +1249,31 @@ async function loadDashboard() {
     }
   }
 
-  // Toggle dropdown on bell click
+  // Toggle dropdown on bell click (set inside loadDashboard so _supa is ready)
   if (bellBtn) {
     bellBtn.onclick = function(e) {
       e.stopPropagation();
-      bellDropdown.style.display = bellDropdown.style.display === "none" ? "block" : "none";
+      var dd = document.getElementById("bellDropdown");
+      if (dd) dd.style.display = dd.style.display === "none" ? "block" : "none";
     };
   }
 
   // Clear all
   const clearAll = document.getElementById("bellClearAll");
   if (clearAll) {
-    clearAll.onclick = async function() {
+    clearAll.onclick = async function(e) {
+      e.stopPropagation();
       await _supa.from("inquiries").update({is_read:true}).eq("is_read",false);
-      bellList.innerHTML = "";
-      if (bellEmpty) bellEmpty.style.display = "block";
-      const badge = document.getElementById("bellBadge");
+      var bl = document.getElementById("bellList");
+      var be = document.getElementById("bellEmpty");
+      if (bl) bl.innerHTML = "";
+      if (be) be.style.display = "block";
+      var badge = document.getElementById("bellBadge");
       if (badge) badge.style.display = "none";
+      var dd = document.getElementById("bellDropdown");
+      if (dd) dd.style.display = "none";
     };
   }
-
-  // Close dropdown when clicking outside
-  document.addEventListener("click", function() {
-    if (bellDropdown) bellDropdown.style.display = "none";
-  });
 
   // Load recent events
   const { data: recent } = await _supa.from("inquiries").select("*").order("created_at",{ascending:false}).limit(5);
@@ -1566,6 +1567,15 @@ function showAdminName(email) {
     area.appendChild(logoutBtn);
   }
 }
+
+// Close bell dropdown when clicking outside (global)
+document.addEventListener("click", function(e) {
+  var dd = document.getElementById("bellDropdown");
+  var btn = document.getElementById("bellBtn");
+  if (dd && btn && !btn.contains(e.target) && !dd.contains(e.target)) {
+    dd.style.display = "none";
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   checkAuth();
