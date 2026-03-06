@@ -94,8 +94,6 @@
 
       <div class="payment-section">
         <h4>&#128179; Payment Details</h4>
-        <label>Down Payment Amount (&#8369;)</label>
-        <input type="number" id="b_down_payment" placeholder="e.g. 5000" style="margin-bottom:12px;">
         <label>Payment Method</label>
         <select id="b_payment_method">
           <option value="">Select Payment Method</option>
@@ -266,7 +264,6 @@ document.addEventListener("DOMContentLoaded", function() {
       event_date:     document.getElementById("b_event_date").value || null,
       venue:          document.getElementById("b_venue").value,
       guests:         parseInt(document.getElementById("b_guests").value) || 0,
-      down_payment:   parseFloat(document.getElementById("b_down_payment").value) || null,
       payment_method: document.getElementById("b_payment_method").value || null,
       message:        document.getElementById("b_message").value,
       status:         "Book"
@@ -294,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function() {
       event_date:     document.getElementById("r_event_date").value || null,
       venue:          document.getElementById("r_venue").value,
       guests:         parseInt(document.getElementById("r_guests").value) || 0,
-      down_payment:   parseFloat(document.getElementById("r_down_payment").value) || null,
+      down_payment:   parseFloat(document.getElementById("r_down_payment").value) || 0,
       payment_method: document.getElementById("r_payment_method").value || null,
       message:        document.getElementById("r_message").value,
       status:         "Reserve"
