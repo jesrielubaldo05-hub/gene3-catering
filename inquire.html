@@ -237,11 +237,20 @@ function showThankYou(msg) {
   document.getElementById("tyMsg").textContent = msg;
   document.getElementById("tyPopup").classList.add("show");
 }
+
+// Auto-select event type from URL e.g. inquire.html?type=Birthday
+var urlType = new URLSearchParams(window.location.search).get("type");
+if (urlType) {
+  var bSelect = document.getElementById("b_event_type");
+  var rSelect = document.getElementById("r_event_type");
+  if (bSelect) bSelect.value = urlType;
+  if (rSelect) rSelect.value = urlType;
+}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const _supa = window.supabase.createClient(
+var _supa = window.supabase.createClient(
   "https://scgptbeecanjuboztweb.supabase.co",
   "sb_publishable_u-VSj6fOWDiipNrC9jZMgw_Oe4AZ_eX"
 );
@@ -307,9 +316,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <script>
-// Highlight current navbar link
-const navLinks = document.querySelectorAll(".nav-links a");
-const currentPage = window.location.pathname.split("/").pop();
+var navLinks = document.querySelectorAll(".nav-links a");
+var currentPage = window.location.pathname.split("/").pop();
 navLinks.forEach(function(link) {
   link.classList.remove("active");
   if (link.getAttribute("href") === currentPage) {
