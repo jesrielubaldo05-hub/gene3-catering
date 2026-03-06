@@ -16,6 +16,8 @@
 .ty-box p{color:#666;font-size:15px;line-height:1.6;margin-bottom:24px;}
 .ty-box .ok-btn{background:#900202;color:#fff;border:none;padding:12px 36px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;}
 .ty-box .ok-btn:hover{background:#6b0000;}
+.payment-section{background:#fff9f9;border:1px solid #f0c0c0;border-radius:8px;padding:16px;margin:8px 0 16px 0;}
+.payment-section h4{color:#900202;font-size:14px;margin:0 0 12px 0;}
 </style>
 </head>
 
@@ -90,6 +92,22 @@
       <label>Number of Guests</label>
       <input type="number" id="b_guests">
 
+      <div class="payment-section">
+        <h4>&#128179; Payment Details</h4>
+        <label>Down Payment Amount (&#8369;)</label>
+        <input type="number" id="b_down_payment" placeholder="e.g. 5000" style="margin-bottom:12px;">
+        <label>Payment Method</label>
+        <select id="b_payment_method">
+          <option value="">Select Payment Method</option>
+          <option>Cash</option>
+          <option>GCash</option>
+          <option>Maya</option>
+          <option>Bank Transfer</option>
+          <option>Credit Card</option>
+          <option>Debit Card</option>
+        </select>
+      </div>
+
       <label>Message</label>
       <textarea rows="4" id="b_message"></textarea>
 
@@ -146,8 +164,21 @@
       <label>Number of Guests</label>
       <input type="number" id="r_guests">
 
-      <label>Down Payment Amount</label>
-      <input type="number" id="r_down_payment" placeholder="&#8369;">
+      <div class="payment-section">
+        <h4>&#128179; Payment Details</h4>
+        <label>Down Payment Amount (&#8369;)</label>
+        <input type="number" id="r_down_payment" placeholder="e.g. 5000" style="margin-bottom:12px;">
+        <label>Payment Method</label>
+        <select id="r_payment_method">
+          <option value="">Select Payment Method</option>
+          <option>Cash</option>
+          <option>GCash</option>
+          <option>Maya</option>
+          <option>Bank Transfer</option>
+          <option>Credit Card</option>
+          <option>Debit Card</option>
+        </select>
+      </div>
 
       <label>Message</label>
       <textarea rows="4" id="r_message"></textarea>
@@ -219,23 +250,26 @@ const _supa = window.supabase.createClient(
 
 document.addEventListener("DOMContentLoaded", function() {
 
+  // BOOK SUBMIT
   document.getElementById("bookSubmitBtn").addEventListener("click", async function() {
-    var name    = document.getElementById("b_name").value;
-    var email   = document.getElementById("b_email").value;
-    var contact = document.getElementById("b_contact").value;
+    var name    = document.getElementById("b_name").value.trim();
+    var email   = document.getElementById("b_email").value.trim();
+    var contact = document.getElementById("b_contact").value.trim();
     if (!name || !email || !contact) { alert("Please fill in required fields."); return; }
 
     var result = await _supa.from("inquiries").insert([{
-      name: name,
-      email: email,
-      contact: contact,
-      address:    document.getElementById("b_address").value,
-      event_type: document.getElementById("b_event_type").value,
-      event_date: document.getElementById("b_event_date").value || null,
-      venue:      document.getElementById("b_venue").value,
-      guests:     parseInt(document.getElementById("b_guests").value) || 0,
-      message:    document.getElementById("b_message").value,
-      status:     "Book"
+      name:           name,
+      email:          email,
+      contact:        contact,
+      address:        document.getElementById("b_address").value,
+      event_type:     document.getElementById("b_event_type").value,
+      event_date:     document.getElementById("b_event_date").value || null,
+      venue:          document.getElementById("b_venue").value,
+      guests:         parseInt(document.getElementById("b_guests").value) || 0,
+      down_payment:   parseFloat(document.getElementById("b_down_payment").value) || null,
+      payment_method: document.getElementById("b_payment_method").value || null,
+      message:        document.getElementById("b_message").value,
+      status:         "Book"
     }]);
 
     if (result.error) { alert("Booking failed: " + result.error.message); console.error(result.error); return; }
@@ -244,23 +278,26 @@ document.addEventListener("DOMContentLoaded", function() {
     goBack();
   });
 
+  // RESERVE SUBMIT
   document.getElementById("reserveSubmitBtn").addEventListener("click", async function() {
-    var name    = document.getElementById("r_name").value;
-    var email   = document.getElementById("r_email").value;
-    var contact = document.getElementById("r_contact").value;
+    var name    = document.getElementById("r_name").value.trim();
+    var email   = document.getElementById("r_email").value.trim();
+    var contact = document.getElementById("r_contact").value.trim();
     if (!name || !email || !contact) { alert("Please fill in required fields."); return; }
 
     var result = await _supa.from("inquiries").insert([{
-      name: name,
-      email: email,
-      contact: contact,
-      address:    document.getElementById("r_address").value,
-      event_type: document.getElementById("r_event_type").value,
-      event_date: document.getElementById("r_event_date").value || null,
-      venue:      document.getElementById("r_venue").value,
-      guests:     parseInt(document.getElementById("r_guests").value) || 0,
-      message:    document.getElementById("r_message").value,
-      status:     "Reserve"
+      name:           name,
+      email:          email,
+      contact:        contact,
+      address:        document.getElementById("r_address").value,
+      event_type:     document.getElementById("r_event_type").value,
+      event_date:     document.getElementById("r_event_date").value || null,
+      venue:          document.getElementById("r_venue").value,
+      guests:         parseInt(document.getElementById("r_guests").value) || 0,
+      down_payment:   parseFloat(document.getElementById("r_down_payment").value) || null,
+      payment_method: document.getElementById("r_payment_method").value || null,
+      message:        document.getElementById("r_message").value,
+      status:         "Reserve"
     }]);
 
     if (result.error) { alert("Reservation failed: " + result.error.message); console.error(result.error); return; }
@@ -275,13 +312,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <script>
 // Highlight current navbar link
 const navLinks = document.querySelectorAll(".nav-links a");
-const currentPage = window.l
-.pop();
+const currentPage = window.location.pathname.split("/").pop();
 navLinks.forEach(function(link) {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === currentPage) {
-        link.classList.add("active");
-    }
+  link.classList.remove("active");
+  if (link.getAttribute("href") === currentPage) {
+    link.classList.add("active");
+  }
 });
 </script>
 

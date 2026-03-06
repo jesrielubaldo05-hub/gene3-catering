@@ -1225,7 +1225,7 @@ async function loadPayments() {
       </td>
       <td style="color:#666;font-size:13px;">${ref}</td>
       <td>${r.down_payment ? "₱ " + Number(r.down_payment).toLocaleString() : "-"}</td>
-      <td>-</td>
+      <td>${r.payment_method || "-"}</td>
       <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
     </tr>`;
   });
