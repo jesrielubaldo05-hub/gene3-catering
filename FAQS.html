@@ -8,8 +8,6 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Source Serif Pro',serif; background:#f2f2f2; min-height:100vh; display:flex; flex-direction:column; }
-
-/* NAV */
 .nav-box { width:100%; background:linear-gradient(to right,#1C1C1C 0%,#900202 87%); padding:10px 50px; }
 .navbar { display:flex; justify-content:space-between; align-items:center; }
 .logo .main-name { font-family:'Playfair Display',serif; font-size:48px; font-weight:900; color:#fff; line-height:1; }
@@ -17,48 +15,22 @@ body { font-family:'Source Serif Pro',serif; background:#f2f2f2; min-height:100v
 .nav-links { display:flex; gap:30px; list-style:none; }
 .nav-links a { color:#fff; text-decoration:none; font-size:18px; transition:0.3s; }
 .nav-links a:hover { opacity:0.7; }
-
-/* MAIN */
 main { flex:1; display:flex; align-items:center; justify-content:center; padding:60px 20px; }
-
-/* CARD */
-.card {
-  background: linear-gradient(to right, #7a0000, #1a0000);
-  border-radius:22px;
-  width:440px;
-  padding:44px 34px 50px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  box-shadow:0 15px 40px rgba(0,0,0,0.4);
-}
-
-.card h1 {
-  font-family:'Playfair Display',serif;
-  font-size:1.5rem;
-  font-weight:900;
-  color:#fff;
-  text-transform:uppercase;
-  letter-spacing:0.07em;
-  text-align:center;
-  margin-bottom:26px;
-}
-
-/* Search */
+.card { background:linear-gradient(to right,#7a0000,#1a0000); border-radius:22px; width:440px; padding:44px 34px 50px; display:flex; flex-direction:column; align-items:center; box-shadow:0 15px 40px rgba(0,0,0,0.4); }
+.card h1 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900; color:#fff; text-transform:uppercase; letter-spacing:0.07em; text-align:center; margin-bottom:26px; }
 .search-box { width:100%; position:relative; margin-bottom:32px; }
 .search-box input { width:100%; padding:13px 44px 13px 18px; border-radius:30px; border:none; outline:none; font-family:'Source Serif Pro',serif; font-size:1rem; color:#333; background:#fff; }
 .search-box input::placeholder { color:#aaa; }
 .search-box svg { position:absolute; right:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; fill:none; stroke:#900202; stroke-width:2.2; stroke-linecap:round; }
-
-/* Buttons */
 .btn-group { width:100%; display:flex; flex-direction:column; align-items:center; gap:14px; }
 .btn-row { display:flex; gap:14px; width:100%; justify-content:center; }
-.btn { background:#b00000; color:#fff; border:none; border-radius:30px; padding:13px 0; font-family:'Source Serif Pro',serif; font-size:1.05rem; font-weight:700; cursor:pointer; transition:background 0.2s,transform 0.2s; text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.3); }
+.btn { background:#b00000; color:#fff; border:none; border-radius:30px; padding:13px 0; font-family:'Source Serif Pro',serif; font-size:1.05rem; font-weight:700; cursor:pointer; transition:background 0.2s,transform 0.2s; text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.3); text-decoration:none; display:flex; align-items:center; justify-content:center; }
 .btn:hover { background:#900202; transform:scale(1.03); }
 .btn-full { width:72%; }
 .btn-half { flex:1; max-width:46%; }
-
-/* FOOTER */
+.faq-results { width:100%; margin-bottom:16px; display:none; }
+.faq-item { background:rgba(255,255,255,0.1); border-radius:10px; padding:14px 16px; margin-bottom:10px; color:#fff; font-size:14px; line-height:1.6; }
+.faq-item strong { display:block; margin-bottom:4px; font-size:15px; }
 .footer-box { background:linear-gradient(to right,#1C1C1C 0%,#900202 87%); padding:30px 50px; display:flex; justify-content:space-between; align-items:flex-start; color:white; flex-wrap:wrap; gap:16px; }
 .footer-left .brand { font-family:'Playfair Display',serif; font-size:18px; font-weight:900; }
 .footer-left p { font-size:14px; margin-top:4px; opacity:0.8; }
@@ -78,7 +50,7 @@ main { flex:1; display:flex; align-items:center; justify-content:center; padding
     </div>
     <ul class="nav-links">
       <li><a href="about.html">About us</a></li>
-      <li><a href="index.html">Menu</a></li>
+      <li><a href="menu.html">Menu</a></li>
       <li><a href="events.html">Events</a></li>
       <li><a href="reviews.html">Reviews</a></li>
       <li><a href="inquire.html">Inquire</a></li>
@@ -91,16 +63,20 @@ main { flex:1; display:flex; align-items:center; justify-content:center; padding
   <div class="card">
     <h1>How can we help?</h1>
     <div class="search-box">
-      <input type="text" placeholder="Search">
+      <input type="text" id="faqSearch" placeholder="Search" oninput="searchFAQ(this.value)">
       <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
     </div>
-    <div class="btn-group">
-      <div class="btn-row"><button class="btn btn-full">Inquiry</button></div>
+
+    <div class="faq-results" id="faqResults"></div>
+
+    <div class="btn-group" id="btnGroup">
       <div class="btn-row">
-        <button class="btn btn-half">Feedback</button>
-        <button class="btn btn-half">Payment</button>
+        <a href="inquire.html" class="btn btn-full">Inquiry</a>
       </div>
-      <div class="btn-row"><button class="btn btn-full">My Account</button></div>
+      <div class="btn-row">
+        <a href="reviews.html" class="btn btn-half">Feedback</a>
+        <a href="inquire.html" class="btn btn-half">Payment</a>
+      </div>
     </div>
   </div>
 </main>
@@ -113,11 +89,49 @@ main { flex:1; display:flex; align-items:center; justify-content:center; padding
     <p>📞 091-2314-2562</p>
   </div>
   <div class="footer-right-links">
-    <a href="#" class="active">FAQS</a>
-    <a href="gene3s-terms.html">Terms &amp; Condition</a>
-    <a href="#">Privacy policy</a>
+    <a href="FAQS.html" class="active">FAQS</a>
+    <a href="privacy_policy.html">Privacy Policy</a>
+    <a href="terms_and_conditions.html">Terms &amp; Conditions</a>
   </div>
 </div>
+
+<script>
+const faqs = [
+  { q: "How do I book an event?", a: "Go to the Inquire page and click BOOK. Fill in your event details and submit. We will contact you shortly." },
+  { q: "How do I make a reservation?", a: "Go to the Inquire page and click RESERVE. Fill in your details including a down payment and we will confirm your reservation." },
+  { q: "What payment methods do you accept?", a: "We accept Cash, GCash, Maya, Bank Transfer, Credit Card, and Debit Card." },
+  { q: "How do I leave a review?", a: "Visit the Reviews page and fill out the Rate Service form. You can also upload a photo or video with your review." },
+  { q: "Where are you located?", a: "We are based in Tambubong, San Rafael, Bulacan, North Luzon." },
+  { q: "How can I contact you?", a: "You can reach us via the Contact Us page, by email at gene3s@gmail.com, or by phone at 091-2314-2562." },
+  { q: "What types of events do you cater?", a: "We cater Weddings, Birthdays, Baptismals, House Blessings, Graduations, Anniversaries, and Corporate Events." },
+  { q: "How far in advance should I book?", a: "We recommend booking at least 2-4 weeks in advance to ensure availability for your event date." },
+  { q: "Is a down payment required?", a: "A down payment is required for reservations. The amount can be specified in your reservation form." },
+  { q: "Can I cancel or reschedule?", a: "Please contact us directly via phone or email to discuss cancellations or rescheduling. Terms and conditions apply." }
+];
+
+function searchFAQ(query) {
+  var results = document.getElementById("faqResults");
+  var btnGroup = document.getElementById("btnGroup");
+  if (!query.trim()) {
+    results.style.display = "none";
+    btnGroup.style.display = "flex";
+    return;
+  }
+  var filtered = faqs.filter(function(f) {
+    return f.q.toLowerCase().includes(query.toLowerCase()) ||
+           f.a.toLowerCase().includes(query.toLowerCase());
+  });
+  if (!filtered.length) {
+    results.innerHTML = '<div class="faq-item"><strong>No results found</strong>Try searching for "booking", "payment", or "contact".</div>';
+  } else {
+    results.innerHTML = filtered.map(function(f) {
+      return '<div class="faq-item"><strong>' + f.q + '</strong>' + f.a + '</div>';
+    }).join('');
+  }
+  results.style.display = "block";
+  btnGroup.style.display = "none";
+}
+</script>
 
 </body>
 </html>
