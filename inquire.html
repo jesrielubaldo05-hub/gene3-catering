@@ -336,13 +336,13 @@ function showReceipt(data) {
   document.getElementById("rc_submitted").textContent = today;
   var statusBadge = document.getElementById("rc_status_badge");
   if (data.status === "Reserve") {
-    statusBadge.textContent = "RESERVATION";
+    statusBadge.textContent = "RESERVED";
     document.getElementById("rc_desc").textContent = "Down Payment - " + (data.event_type || "Event");
     var dpAmt = data.down_payment ? "PHP " + Number(data.down_payment).toLocaleString() : "-";
     document.getElementById("rc_amount").textContent = dpAmt;
     document.getElementById("rc_total").textContent  = dpAmt;
   } else {
-    statusBadge.textContent = "BOOKING";
+    statusBadge.textContent = "BOOKED";
     document.getElementById("rc_desc").textContent  = "Booking - " + (data.event_type || "Event");
     document.getElementById("rc_amount").textContent = "-";
     document.getElementById("rc_total").textContent  = "-";
@@ -464,15 +464,18 @@ var calState = {
   b: { year: new Date().getFullYear(), month: new Date().getMonth() },
   r: { year: new Date().getFullYear(), month: new Date().getMonth() }
 };
-var bookedCounts = {}; // { "2026-04-15": 2 }
+var bookedCounts = {};
 
 async function loadBookedDates() {
-  var result = await _supa.from("inquiries").select("event_date");
+  var result = await _supa.from("inquiries").select("event_date, status");
   if (result.data) {
     bookedCounts = {};
     result.data.forEach(function(r) {
       if (r.event_date) {
-        bookedCounts[r.event_date] = (bookedCounts[r.event_date] || 0) + 1;
+        if (!bookedCounts[r.event_date]) bookedCounts[r.event_date] = { total: 0, booked: 0, reserved: 0 };
+        bookedCounts[r.event_date].total++;
+        if (r.status === "Book") bookedCounts[r.event_date].booked++;
+        if (r.status === "Reserve") bookedCounts[r.event_date].reserved++;
       }
     });
   }
@@ -489,46 +492,100 @@ function renderCal(prefix) {
   var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   label.textContent = months[state.month] + " " + state.year;
 
-  var today = new Date(); today.setHours(0,0,0,0);
+  var today = new Date();
+  today.setHours(0,0,0,0);
   var firstDay = new Date(state.year, state.month, 1).getDay();
   var daysInMonth = new Date(state.year, state.month + 1, 0).getDate();
+  var selectedVal = document.getElementById(prefix + "_event_date").value;
 
-  grid.innerHTML = "";
+  while (grid.firstChild) grid.removeChild(grid.firstChild);
 
-  // Empty cells before first day
   for (var i = 0; i < firstDay; i++) {
-    grid.innerHTML += '<div></div>';
+    grid.appendChild(document.createElement("div"));
   }
 
   for (var d = 1; d <= daysInMonth; d++) {
-    var dateStr = state.year + "-" + String(state.month+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
+    var mm = String(state.month + 1).padStart(2, "0");
+    var dd = String(d).padStart(2, "0");
+    var dateStr = state.year + "-" + mm + "-" + dd;
     var dateObj = new Date(state.year, state.month, d);
-    var count = bookedCounts[dateStr] || 0;
+    var info = bookedCounts[dateStr] || { total: 0, booked: 0, reserved: 0 };
+    var count = info.total;
     var full = count >= MAX_PER_DAY;
     var isPast = dateObj < today;
-    var isSelected = document.getElementById(prefix + "_event_date").value === dateStr;
+    var isSelected = selectedVal === dateStr;
 
-    var bg = "#f5f5f5";
-    var color = "#333";
-    var cursor = "pointer";
-    var title = count + "/" + MAX_PER_DAY + " booked";
-    if (isPast) { bg = "#eee"; color = "#bbb"; cursor = "default"; }
-    else if (full) { bg = "#ffebee"; color = "#c62828"; cursor = "not-allowed"; title = "Fully booked"; }
-    else if (count > 0) { bg = "#fff8e1"; color = "#f57f17"; }
-    if (isSelected) { bg = "#900202"; color = "#fff"; }
+    var cell = document.createElement("div");
+    cell.style.textAlign = "center";
+    cell.style.padding = "4px 2px";
+    cell.style.borderRadius = "6px";
+    cell.style.fontSize = "12px";
+    cell.style.userSelect = "none";
+    cell.style.fontWeight = "500";
+    cell.style.lineHeight = "1.3";
 
-    var dot = (!isPast && !full && count > 0) ? '<div style="width:5px;height:5px;border-radius:50%;background:#f57f17;margin:2px auto 0;"></div>' : '';
-    var btn = '<div onclick="' + (isPast || full ? '' : 'selectDate("' + prefix + '","' + dateStr + '")') + '"' +
-      ' title="' + title + '"' +
-      ' style="text-align:center;padding:6px 2px;border-radius:6px;font-size:13px;cursor:' + cursor + ';background:' + bg + ';color:' + color + ';user-select:none;">' +
-      d + dot + '</div>';
-    grid.innerHTML += btn;
+    // Day number
+    var dayNum = document.createElement("div");
+    dayNum.textContent = d;
+    dayNum.style.fontWeight = "700";
+    dayNum.style.fontSize = "13px";
+    cell.appendChild(dayNum);
+
+    // Show Booked/Reserved labels under the day number
+    if (!isPast && info.booked > 0) {
+      var bLabel = document.createElement("div");
+      bLabel.textContent = "Booked";
+      bLabel.style.cssText = "font-size:9px;background:#900202;color:#fff;border-radius:3px;padding:1px 3px;margin-top:2px;";
+      cell.appendChild(bLabel);
+    }
+    if (!isPast && info.reserved > 0) {
+      var rLabel = document.createElement("div");
+      rLabel.textContent = "Reserved";
+      rLabel.style.cssText = "font-size:9px;background:#1565c0;color:#fff;border-radius:3px;padding:1px 3px;margin-top:2px;";
+      cell.appendChild(rLabel);
+    }
+
+    if (isSelected) {
+      cell.style.background = "#900202";
+      cell.style.color = "#fff";
+      cell.style.cursor = "pointer";
+      cell.style.outline = "2px solid #fff";
+    } else if (isPast) {
+      cell.style.background = "#e0e0e0";
+      cell.style.color = "#bbb";
+      cell.style.cursor = "default";
+    } else if (full) {
+      cell.style.background = "#ffebee";
+      cell.style.color = "#c62828";
+      cell.style.cursor = "not-allowed";
+      cell.title = "Fully booked";
+    } else if (count === 1) {
+      cell.style.background = "#fff8e1";
+      cell.style.color = "#333";
+      cell.style.cursor = "pointer";
+      cell.title = "1 slot left";
+    } else {
+      cell.style.background = "#f5f5f5";
+      cell.style.color = "#333";
+      cell.style.cursor = "pointer";
+    }
+
+    if (!isPast && !full) {
+      (function(p, ds) {
+        cell.addEventListener("click", function() {
+          selectDate(p, ds);
+        });
+      }(prefix, dateStr));
+    }
+
+    grid.appendChild(cell);
   }
 }
 
 function selectDate(prefix, dateStr) {
   document.getElementById(prefix + "_event_date").value = dateStr;
-  var display = new Date(dateStr + "T00:00:00").toLocaleDateString("en-PH", {weekday:"long",year:"numeric",month:"long",day:"numeric"});
+  var d = new Date(dateStr + "T00:00:00");
+  var display = d.toLocaleDateString("en-PH", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
   document.getElementById(prefix + "_cal_selected").textContent = display;
   renderCal(prefix);
 }
@@ -540,9 +597,8 @@ function calNav(prefix, dir) {
   renderCal(prefix);
 }
 
-// Load booked dates when supabase is ready
 document.addEventListener("DOMContentLoaded", function() {
-  setTimeout(loadBookedDates, 500);
+  setTimeout(loadBookedDates, 600);
 });
 </script>
 
