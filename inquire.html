@@ -18,6 +18,13 @@
 .ty-box .ok-btn:hover{background:#6b0000;}
 .payment-section{background:#fff9f9;border:1px solid #f0c0c0;border-radius:8px;padding:16px;margin:8px 0 16px 0;}
 .payment-section h4{color:#900202;font-size:14px;margin:0 0 12px 0;}
+.terms{display:flex;align-items:center;gap:12px;margin:16px 0 10px 0;background:#fff;border:2px solid #900202;border-radius:8px;padding:12px 16px;}
+.terms input[type=checkbox]{width:20px;height:20px;min-width:20px;accent-color:#900202;cursor:pointer;border:2px solid #900202;}
+.terms label{color:#333;font-size:14px;font-weight:600;cursor:pointer;line-height:1.4;margin:0;}
+.terms label a{color:#900202;text-decoration:underline;font-weight:700;}
+.terms label a:hover{color:#6b0000;}
+.note{background:rgba(0,0,0,0.2);border-left:3px solid #900202;border-radius:0 8px 8px 0;padding:12px 14px;color:rgba(255,255,255,0.8);font-size:13px;line-height:1.6;margin:6px 0 16px 0;}
+.note strong{color:#fff;}
 </style>
 </head>
 
@@ -84,7 +91,21 @@
       </select>
 
       <label>Event Date</label>
-      <input type="date" id="b_event_date">
+      <div id="b_cal_wrap" style="margin-bottom:12px;">
+        <div id="b_cal_header" style="display:flex;justify-content:space-between;align-items:center;background:#900202;color:#fff;padding:10px 14px;border-radius:8px 8px 0 0;font-weight:700;">
+          <button type="button" onclick="calNav('b',-1)" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&#8249;</button>
+          <span id="b_cal_label"></span>
+          <button type="button" onclick="calNav('b',1)" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&#8250;</button>
+        </div>
+        <div style="background:#fff;border:1px solid #ddd;border-radius:0 0 8px 8px;padding:10px;">
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;color:#999;margin-bottom:6px;">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="b_cal_grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;"></div>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.7);margin-top:6px;">Selected: <span id="b_cal_selected" style="color:#fff;font-weight:700;">None</span></p>
+      </div>
+      <input type="hidden" id="b_event_date">
 
       <label>Event Venue</label>
       <input type="text" id="b_venue">
@@ -154,7 +175,21 @@
       </select>
 
       <label>Event Date</label>
-      <input type="date" id="r_event_date">
+      <div id="r_cal_wrap" style="margin-bottom:12px;">
+        <div id="r_cal_header" style="display:flex;justify-content:space-between;align-items:center;background:#900202;color:#fff;padding:10px 14px;border-radius:8px 8px 0 0;font-weight:700;">
+          <button type="button" onclick="calNav('r',-1)" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&#8249;</button>
+          <span id="r_cal_label"></span>
+          <button type="button" onclick="calNav('r',1)" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;">&#8250;</button>
+        </div>
+        <div style="background:#fff;border:1px solid #ddd;border-radius:0 0 8px 8px;padding:10px;">
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;color:#999;margin-bottom:6px;">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="r_cal_grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;"></div>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.7);margin-top:6px;">Selected: <span id="r_cal_selected" style="color:#fff;font-weight:700;">None</span></p>
+      </div>
+      <input type="hidden" id="r_event_date">
 
       <label>Event Venue</label>
       <input type="text" id="r_venue">
@@ -211,7 +246,7 @@
     <div style="text-align:center;border-bottom:2px solid #900202;padding-bottom:16px;margin-bottom:20px;">
       <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#900202;margin-bottom:4px;">Gene 3's Catering Service</h2>
       <p style="font-size:12px;color:#666;">&#128205; Tambubong, San Rafael, Bulacan &nbsp;|&nbsp; &#128222; 091-2314-2562</p>
-      <p style="font-size:12px;color:#666;">gene3s@gmail.com</p>
+      <p style="font-size:12px;color:#666;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dcbbb9b2b9efaf9cbbb1bdb5b0f2bfb3b1">[email&#160;protected]</a></p>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
       <div>
@@ -269,7 +304,7 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function openForm(type) {
   document.getElementById("choiceScreen").style.display = "none";
   document.getElementById("bookForm").style.display = "none";
@@ -418,6 +453,96 @@ navLinks.forEach(function(link) {
   if (link.getAttribute("href") === currentPage) {
     link.classList.add("active");
   }
+});
+</script>
+
+
+<script>
+// ===== CALENDAR BOOKING SYSTEM =====
+var MAX_PER_DAY = 2;
+var calState = {
+  b: { year: new Date().getFullYear(), month: new Date().getMonth() },
+  r: { year: new Date().getFullYear(), month: new Date().getMonth() }
+};
+var bookedCounts = {}; // { "2026-04-15": 2 }
+
+async function loadBookedDates() {
+  var result = await _supa.from("inquiries").select("event_date");
+  if (result.data) {
+    bookedCounts = {};
+    result.data.forEach(function(r) {
+      if (r.event_date) {
+        bookedCounts[r.event_date] = (bookedCounts[r.event_date] || 0) + 1;
+      }
+    });
+  }
+  renderCal("b");
+  renderCal("r");
+}
+
+function renderCal(prefix) {
+  var state = calState[prefix];
+  var grid = document.getElementById(prefix + "_cal_grid");
+  var label = document.getElementById(prefix + "_cal_label");
+  if (!grid || !label) return;
+
+  var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  label.textContent = months[state.month] + " " + state.year;
+
+  var today = new Date(); today.setHours(0,0,0,0);
+  var firstDay = new Date(state.year, state.month, 1).getDay();
+  var daysInMonth = new Date(state.year, state.month + 1, 0).getDate();
+
+  grid.innerHTML = "";
+
+  // Empty cells before first day
+  for (var i = 0; i < firstDay; i++) {
+    grid.innerHTML += '<div></div>';
+  }
+
+  for (var d = 1; d <= daysInMonth; d++) {
+    var dateStr = state.year + "-" + String(state.month+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
+    var dateObj = new Date(state.year, state.month, d);
+    var count = bookedCounts[dateStr] || 0;
+    var full = count >= MAX_PER_DAY;
+    var isPast = dateObj < today;
+    var isSelected = document.getElementById(prefix + "_event_date").value === dateStr;
+
+    var bg = "#f5f5f5";
+    var color = "#333";
+    var cursor = "pointer";
+    var title = count + "/" + MAX_PER_DAY + " booked";
+    if (isPast) { bg = "#eee"; color = "#bbb"; cursor = "default"; }
+    else if (full) { bg = "#ffebee"; color = "#c62828"; cursor = "not-allowed"; title = "Fully booked"; }
+    else if (count > 0) { bg = "#fff8e1"; color = "#f57f17"; }
+    if (isSelected) { bg = "#900202"; color = "#fff"; }
+
+    var dot = (!isPast && !full && count > 0) ? '<div style="width:5px;height:5px;border-radius:50%;background:#f57f17;margin:2px auto 0;"></div>' : '';
+    var btn = '<div onclick="' + (isPast || full ? '' : 'selectDate("' + prefix + '","' + dateStr + '")') + '"' +
+      ' title="' + title + '"' +
+      ' style="text-align:center;padding:6px 2px;border-radius:6px;font-size:13px;cursor:' + cursor + ';background:' + bg + ';color:' + color + ';user-select:none;">' +
+      d + dot + '</div>';
+    grid.innerHTML += btn;
+  }
+}
+
+function selectDate(prefix, dateStr) {
+  document.getElementById(prefix + "_event_date").value = dateStr;
+  var display = new Date(dateStr + "T00:00:00").toLocaleDateString("en-PH", {weekday:"long",year:"numeric",month:"long",day:"numeric"});
+  document.getElementById(prefix + "_cal_selected").textContent = display;
+  renderCal(prefix);
+}
+
+function calNav(prefix, dir) {
+  calState[prefix].month += dir;
+  if (calState[prefix].month > 11) { calState[prefix].month = 0; calState[prefix].year++; }
+  if (calState[prefix].month < 0)  { calState[prefix].month = 11; calState[prefix].year--; }
+  renderCal(prefix);
+}
+
+// Load booked dates when supabase is ready
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(loadBookedDates, 500);
 });
 </script>
 
