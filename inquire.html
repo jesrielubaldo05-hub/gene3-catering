@@ -311,8 +311,10 @@ function openForm(type) {
   document.getElementById("reserveForm").style.display = "none";
   if (type === "book") {
     document.getElementById("bookForm").style.display = "block";
+    renderCal("b");
   } else {
     document.getElementById("reserveForm").style.display = "block";
+    renderCal("r");
   }
 }
 
@@ -524,24 +526,25 @@ function renderCal(prefix) {
     cell.style.fontWeight = "500";
     cell.style.lineHeight = "1.3";
 
-    // Day number
+    // Day number - pointer-events:none so clicks pass to parent cell
     var dayNum = document.createElement("div");
     dayNum.textContent = d;
     dayNum.style.fontWeight = "700";
     dayNum.style.fontSize = "13px";
+    dayNum.style.pointerEvents = "none";
     cell.appendChild(dayNum);
 
     // Show Booked/Reserved labels under the day number
     if (!isPast && info.booked > 0) {
       var bLabel = document.createElement("div");
       bLabel.textContent = "Booked";
-      bLabel.style.cssText = "font-size:9px;background:#900202;color:#fff;border-radius:3px;padding:1px 3px;margin-top:2px;";
+      bLabel.style.cssText = "font-size:9px;background:#900202;color:#fff;border-radius:3px;padding:1px 3px;margin-top:2px;pointer-events:none;";
       cell.appendChild(bLabel);
     }
     if (!isPast && info.reserved > 0) {
       var rLabel = document.createElement("div");
       rLabel.textContent = "Reserved";
-      rLabel.style.cssText = "font-size:9px;background:#1565c0;color:#fff;border-radius:3px;padding:1px 3px;margin-top:2px;";
+      rLabel.style.cssText = "font-size:9px;background:#1565c0;color:#fff;border-radius:3px;padding:1px 3px;margin-top:2px;pointer-events:none;";
       cell.appendChild(rLabel);
     }
 
