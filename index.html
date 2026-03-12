@@ -20,7 +20,8 @@
     .section-title { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:#1a0000; margin-bottom:36px; }
     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
     .service-card { background:#fff9f9; border:1px solid #f0c0c0; border-radius:14px; padding:26px 16px; text-align:center; transition:transform 0.2s,box-shadow 0.2s; }
-    .service-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(144,2,2,0.12); }
+    a.service-card { text-decoration:none; color:inherit; display:block; }
+    a.service-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(144,2,2,0.12); }
     .service-icon { font-size:34px; margin-bottom:10px; }
     .service-card h3 { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; color:#1a0000; margin-bottom:5px; }
     .service-card p { font-size:12px; color:#888; line-height:1.5; }
@@ -119,13 +120,13 @@
             <div class="section-label">What We Offer</div>
             <h2 class="section-title">Our Services</h2>
             <div class="services-grid">
-                <div class="service-card"><div class="service-icon">💍</div><h3>Wedding</h3><p>Elegant setups and fine dining for your most special day.</p></div>
-                <div class="service-card"><div class="service-icon">🎂</div><h3>Birthday</h3><p>Memorable birthday celebrations with delicious food.</p></div>
-                <div class="service-card"><div class="service-icon">🍼</div><h3>Baptismal</h3><p>Celebrate new beginnings with a beautiful spread.</p></div>
-                <div class="service-card"><div class="service-icon">🏠</div><h3>House Blessing</h3><p>Welcome your new home with a hearty celebration.</p></div>
-                <div class="service-card"><div class="service-icon">🎓</div><h3>Graduation</h3><p>Honor your graduate with a feast to remember.</p></div>
-                <div class="service-card"><div class="service-icon">💑</div><h3>Anniversary</h3><p>Celebrate love and milestones with a beautiful dinner.</p></div>
-                <div class="service-card"><div class="service-icon">💼</div><h3>Corporate</h3><p>Professional catering for meetings and company events.</p></div>
+                <a href="events.html?pkg=wedding" class="service-card"><div class="service-icon">💍</div><h3>Wedding</h3><p>Elegant setups and fine dining for your most special day.</p></a>
+                <a href="events.html?pkg=birthday" class="service-card"><div class="service-icon">🎂</div><h3>Birthday</h3><p>Memorable birthday celebrations with delicious food.</p></a>
+                <a href="events.html?pkg=baptismal" class="service-card"><div class="service-icon">🍼</div><h3>Baptismal</h3><p>Celebrate new beginnings with a beautiful spread.</p></a>
+                <a href="events.html?pkg=house" class="service-card"><div class="service-icon">🏠</div><h3>House Blessing</h3><p>Welcome your new home with a hearty celebration.</p></a>
+                <a href="events.html?pkg=graduation" class="service-card"><div class="service-icon">🎓</div><h3>Graduation</h3><p>Honor your graduate with a feast to remember.</p></a>
+                <a href="events.html?pkg=anniversary" class="service-card"><div class="service-icon">💑</div><h3>Anniversary</h3><p>Celebrate love and milestones with a beautiful dinner.</p></a>
+                <a href="events.html?pkg=corporate" class="service-card"><div class="service-icon">💼</div><h3>Corporate</h3><p>Professional catering for meetings and company events.</p></a>
             </div>
         </section>
 
@@ -169,7 +170,7 @@
         <div class="footer-left">
             <h2 class="footer-logo">GENE 3'S CATERING SERVICE</h2>
             <p>Tambubong, San Rafael, Bulacan</p>
-            <p>gene3s@gmail.com</p>
+            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e681838883d595a6818b878f8ac885898b">[email&#160;protected]</a></p>
             <p>091-2354-2562</p>
         </div>
         <div class="footer-right-links">
@@ -181,7 +182,7 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 var _supa = window.supabase.createClient(
   "https://scgptbeecanjuboztweb.supabase.co",
@@ -221,8 +222,9 @@ window.addEventListener("load", function() {
 });
 
 var navLinks = document.querySelectorAll(".nav-links a");
-var currentPage = location.pathname.split("/").pop() || "index.html";
+var currentPage = window.location.pathname.split("/").pop() || "index.html";
 navLinks.forEach(function(link) {
+  link.classList.remove("active");
   if (link.getAttribute("href") === currentPage) {
     link.classList.add("active");
   }
