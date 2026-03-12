@@ -15,6 +15,7 @@ body { font-family:'Source Serif Pro',serif; background:#f2f2f2; min-height:100v
 .nav-links { display:flex; gap:30px; list-style:none; }
 .nav-links a { color:#fff; text-decoration:none; font-size:18px; transition:0.3s; }
 .nav-links a:hover { opacity:0.7; }
+.nav-links a.active { border-bottom:3px solid #fff; padding-bottom:3px; }
 main { flex:1; padding:60px 50px; max-width:860px; margin:0 auto; width:100%; }
 h1 { font-family:'Playfair Display',serif; font-size:2.2rem; color:#900202; margin-bottom:8px; }
 .last-updated { color:#999; font-size:13px; margin-bottom:40px; }
@@ -36,16 +37,17 @@ ul li { margin-bottom:6px; }
 <div class="nav-box">
   <nav class="navbar">
     <div class="logo">
-      <div class="main-name">G<span style="font-size:0.55em;font-weight:700;letter-spacing:1px;">ene 3's</span></div>
-      <div class="sub-name">catering service</div>
+      <div class="main-name">Gene 3's</div>
+      <div class="sub-name">Catering Service</div>
     </div>
     <ul class="nav-links">
-      <li><a href="about.html">About us</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="menu.html">Menu</a></li>
-      <li><a href="events.html">Events</a></li>
+      <li><a href="events.html">Event</a></li>
       <li><a href="reviews.html">Reviews</a></li>
       <li><a href="inquire.html">Inquire</a></li>
-      <li><a href="contacts.html">Contact us</a></li>
+      <li><a href="contacts.html">Contact Us</a></li>
     </ul>
   </nav>
 </div>
@@ -96,7 +98,7 @@ ul li { margin-bottom:6px; }
     <li>Request deletion of your data</li>
     <li>Withdraw consent for promotional communications at any time</li>
   </ul>
-  <p>To exercise any of these rights, please contact us at gene3s@gmail.com or call 091-2314-2562.</p>
+  <p>To exercise any of these rights, please contact us at gene3s@gmail.com or call 091-2354-2562.</p>
 
   <h2>7. Changes to This Policy</h2>
   <p>We may update this Privacy Policy from time to time. Any changes will be reflected on this page with an updated date. We encourage you to review this page periodically.</p>
@@ -105,7 +107,7 @@ ul li { margin-bottom:6px; }
   <p>If you have any questions about this Privacy Policy, please reach out to us:</p>
   <ul>
     <li>Email: gene3s@gmail.com</li>
-    <li>Phone: 091-2314-2562</li>
+    <li>Phone: 091-2354-2562</li>
     <li>Address: Tambubong, San Rafael, Bulacan, North Luzon, 3008</li>
   </ul>
 </main>
@@ -115,14 +117,25 @@ ul li { margin-bottom:6px; }
     <div class="brand">Gene 3's Catering Service</div>
     <p>📍 Tambubong san rafael Bulacan</p>
     <p>✉ gene3s@gmail.com</p>
-    <p>📞 091-2314-2562</p>
+    <p>📞 091-2354-2562</p>
   </div>
   <div class="footer-right-links">
     <a href="FAQS.html">FAQS</a>
-    <a href="privacy_policy.html" class="active">Privacy Policy</a>
+    <a href="policy.html" class="active">Privacy Policy</a>
     <a href="terms_and_conditions.html">Terms &amp; Conditions</a>
   </div>
 </div>
+
+<script>
+var navLinks = document.querySelectorAll(".nav-links a");
+var currentPage = window.location.pathname.split("/").pop() || "index.html";
+navLinks.forEach(function(link) {
+  link.classList.remove("active");
+  if (link.getAttribute("href") === currentPage) {
+    link.classList.add("active");
+  }
+});
+</script>
 
 </body>
 </html>

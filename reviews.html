@@ -29,15 +29,15 @@
 <div class="main-name">Gene 3's</div>
 <div class="sub-name">Catering Service</div>
 </div>
-<ul class="nav-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="menu.html">Menu</a></li>
-<li><a href="events.html">Event</a></li>
-<li><a href="reviews.html">Reviews</a></li>
-<li><a href="inquire.html">Inquire</a></li>
-<li><a href="contacts.html">Contact Us</a></li>
-</ul>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="events.html">Event</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="inquire.html">Inquire</a></li>
+      <li><a href="contacts.html">Contact Us</a></li>
+    </ul>
 </nav>
 </header>
 
@@ -260,11 +260,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
-
 <script>
-// Highlight current navbar link
-const navLinks = document.querySelectorAll(".nav-links a");
-const currentPage = window.location.pathname.split("/").pop();
+var navLinks = document.querySelectorAll(".nav-links a");
+var currentPage = window.location.pathname.split("/").pop() || "index.html";
 navLinks.forEach(function(link) {
   link.classList.remove("active");
   if (link.getAttribute("href") === currentPage) {

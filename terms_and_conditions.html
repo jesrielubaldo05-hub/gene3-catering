@@ -34,22 +34,25 @@ h1 { font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:900; te
 </style>
 </head>
 <body>
+
 <div class="nav-box">
   <nav class="navbar">
     <div class="logo">
-      <div class="main-name">G<span style="font-size:0.55em;font-weight:700;letter-spacing:1px;">ene 3's</span></div>
-      <div class="sub-name">catering service</div>
+      <div class="main-name">Gene 3's</div>
+      <div class="sub-name">Catering Service</div>
     </div>
     <ul class="nav-links">
-      <li><a href="about.html">About us</a></li>
-      <li><a href="index.html">Menu</a></li>
-      <li><a href="events.html">Events</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="events.html">Event</a></li>
       <li><a href="reviews.html">Reviews</a></li>
       <li><a href="inquire.html">Inquire</a></li>
-      <li><a href="contacts.html">Contact us</a></li>
+      <li><a href="contacts.html">Contact Us</a></li>
     </ul>
   </nav>
 </div>
+
 <div class="page-wrap">
   <h1>Terms and Condition</h1>
   <div class="tc-section"><h2>Reservation Fee</h2><ul><li>A minimum of PHP 6,000.00 non-refundable reservation fee is required to secure your booking.</li><li>This fee is deductible from the total contract package. We do not pencil book any event.</li></ul></div>
@@ -70,18 +73,31 @@ h1 { font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:900; te
   <div class="tc-section"><h2>Crew Meals</h2><ul><li>If crew members are not permitted to eat at the buffet area, the client must provide decent meals. If crew members are allowed to eat at the buffet, additional crew meals will be included in the final bill.</li></ul></div>
   <p class="closing-note">Note: Any additional charges apply if crew members cannot eat at the buffet.</p>
 </div>
+
 <div class="footer-box">
   <div class="footer-left">
     <div class="brand">Gene 3's Catering Service</div>
     <p>📍 Tambubong san rafael Bulacan</p>
     <p>✉ gene3s@gmail.com</p>
-    <p>📞 091-2314-2562</p>
+    <p>📞 091-2354-2562</p>
   </div>
   <div class="footer-right-links">
     <a href="FAQS.html">FAQS</a>
     <a href="terms_and_conditions.html" class="active">Terms &amp; Condition</a>
-    <a href="policy.html">Privacy policy</a>
+    <a href="policy.html">Privacy Policy</a>
   </div>
 </div>
+
+<script>
+var navLinks = document.querySelectorAll(".nav-links a");
+var currentPage = window.location.pathname.split("/").pop() || "index.html";
+navLinks.forEach(function(link) {
+  link.classList.remove("active");
+  if (link.getAttribute("href") === currentPage) {
+    link.classList.add("active");
+  }
+});
+</script>
+
 </body>
 </html>

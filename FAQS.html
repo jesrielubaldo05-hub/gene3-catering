@@ -15,6 +15,7 @@ body { font-family:'Source Serif Pro',serif; background:#f2f2f2; min-height:100v
 .nav-links { display:flex; gap:30px; list-style:none; }
 .nav-links a { color:#fff; text-decoration:none; font-size:18px; transition:0.3s; }
 .nav-links a:hover { opacity:0.7; }
+.nav-links a.active { border-bottom:3px solid #fff; padding-bottom:3px; }
 main { flex:1; display:flex; align-items:center; justify-content:center; padding:60px 20px; }
 .card { background:linear-gradient(to right,#7a0000,#1a0000); border-radius:22px; width:440px; padding:44px 34px 50px; display:flex; flex-direction:column; align-items:center; box-shadow:0 15px 40px rgba(0,0,0,0.4); }
 .card h1 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900; color:#fff; text-transform:uppercase; letter-spacing:0.07em; text-align:center; margin-bottom:26px; }
@@ -45,16 +46,17 @@ main { flex:1; display:flex; align-items:center; justify-content:center; padding
 <div class="nav-box">
   <nav class="navbar">
     <div class="logo">
-      <div class="main-name">G<span style="font-size:0.55em;font-weight:700;letter-spacing:1px;">ene 3's</span></div>
-      <div class="sub-name">catering service</div>
+      <div class="main-name">Gene 3's</div>
+      <div class="sub-name">Catering Service</div>
     </div>
     <ul class="nav-links">
-      <li><a href="about.html">About us</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="menu.html">Menu</a></li>
-      <li><a href="events.html">Events</a></li>
+      <li><a href="events.html">Event</a></li>
       <li><a href="reviews.html">Reviews</a></li>
       <li><a href="inquire.html">Inquire</a></li>
-      <li><a href="contacts.html">Contact us</a></li>
+      <li><a href="contacts.html">Contact Us</a></li>
     </ul>
   </nav>
 </div>
@@ -86,11 +88,11 @@ main { flex:1; display:flex; align-items:center; justify-content:center; padding
     <div class="brand">Gene 3's Catering Service</div>
     <p>📍 Tambubong san rafael Bulacan</p>
     <p>✉ gene3s@gmail.com</p>
-    <p>📞 091-2314-2562</p>
+    <p>📞 091-2354-2562</p>
   </div>
   <div class="footer-right-links">
     <a href="FAQS.html" class="active">FAQS</a>
-    <a href="privacy_policy.html">Privacy Policy</a>
+    <a href="policy.html">Privacy Policy</a>
     <a href="terms_and_conditions.html">Terms &amp; Conditions</a>
   </div>
 </div>
@@ -102,7 +104,7 @@ const faqs = [
   { q: "What payment methods do you accept?", a: "We accept Cash, GCash, Maya, Bank Transfer, Credit Card, and Debit Card." },
   { q: "How do I leave a review?", a: "Visit the Reviews page and fill out the Rate Service form. You can also upload a photo or video with your review." },
   { q: "Where are you located?", a: "We are based in Tambubong, San Rafael, Bulacan, North Luzon." },
-  { q: "How can I contact you?", a: "You can reach us via the Contact Us page, by email at gene3s@gmail.com, or by phone at 091-2314-2562." },
+  { q: "How can I contact you?", a: "You can reach us via the Contact Us page, by email at gene3s@gmail.com, or by phone at 091-2354-2562." },
   { q: "What types of events do you cater?", a: "We cater Weddings, Birthdays, Baptismals, House Blessings, Graduations, Anniversaries, and Corporate Events." },
   { q: "How far in advance should I book?", a: "We recommend booking at least 2-4 weeks in advance to ensure availability for your event date." },
   { q: "Is a down payment required?", a: "A down payment is required for reservations. The amount can be specified in your reservation form." },
@@ -131,6 +133,17 @@ function searchFAQ(query) {
   results.style.display = "block";
   btnGroup.style.display = "none";
 }
+</script>
+
+<script>
+var navLinks = document.querySelectorAll(".nav-links a");
+var currentPage = window.location.pathname.split("/").pop() || "index.html";
+navLinks.forEach(function(link) {
+  link.classList.remove("active");
+  if (link.getAttribute("href") === currentPage) {
+    link.classList.add("active");
+  }
+});
 </script>
 
 </body>
