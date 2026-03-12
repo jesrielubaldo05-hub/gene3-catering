@@ -57,6 +57,26 @@
       <button class="choice-btn book-btn" onclick="openForm('book')">BOOK</button>
       <button class="choice-btn reserve-btn" onclick="openForm('reserve')">RESERVE</button>
     </div>
+    <div style="margin-top:20px;">
+      <button onclick="openCheckBooking()" style="background:transparent;color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.4);padding:10px 28px;border-radius:8px;font-size:14px;cursor:pointer;font-family:'Source Serif Pro',serif;transition:all 0.2s;">
+        &#128269; Check / Cancel My Booking
+      </button>
+    </div>
+  </section>
+
+  <!-- CHECK BOOKING SCREEN -->
+  <section id="checkScreen" class="form-screen" style="display:none;">
+    <div class="form-header">
+      <span class="back-arrow" onclick="goBack()">&#8592;</span>
+      <h2>My Booking</h2>
+    </div>
+    <div class="inquiry-form">
+      <p style="color:rgba(255,255,255,0.8);font-size:14px;margin-bottom:16px;line-height:1.6;">Enter your email address to find your booking or reservation.</p>
+      <label>Email Address</label>
+      <input type="email" id="ck_email" placeholder="Enter your email">
+      <button type="button" onclick="lookupBooking()" style="width:100%;background:#900202;color:#fff;border:none;padding:13px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;font-family:'Source Serif Pro',serif;">Find My Booking</button>
+      <div id="ck_results" style="margin-top:20px;"></div>
+    </div>
   </section>
 
   <!-- BOOK FORM -->
@@ -298,8 +318,22 @@
       <p style="font-size:12px;color:#666;"><strong style="color:#900202;">Note:</strong> This is a confirmation of your inquiry. Our team will contact you shortly to finalize your event details.</p>
     </div>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-      <button onclick="window.print()" style="background:#fff;color:#900202;border:2px solid #900202;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Print</button>
-      <button onclick="window.location.href='index.html'" style="background:#900202;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">OK, Go Home</button>
+      <button onclick="window.print()" style="background:#fff;color:#900202;border:2px solid #900202;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">&#128424; Print</button>
+      <button onclick="document.getElementById('tyPopup').classList.remove('show')" style="background:#eee;color:#555;border:none;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Close</button>
+      <button onclick="window.location.href='index.html'" style="background:#900202;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Go Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel Confirm Popup -->
+<div id="cancelConfirmPopup" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:99999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:14px;padding:32px 28px;max-width:360px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="font-size:48px;margin-bottom:12px;">⚠️</div>
+    <h3 style="color:#900202;font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px;">Cancel Booking?</h3>
+    <p style="color:#666;font-size:14px;line-height:1.6;margin-bottom:24px;">This action cannot be undone. Your booking will be permanently removed.</p>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button onclick="document.getElementById('cancelConfirmPopup').style.display='none'" style="background:#eee;color:#555;border:none;padding:11px 26px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Keep It</button>
+      <button onclick="doCancel()" style="background:#c62828;color:#fff;border:none;padding:11px 26px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Yes, Cancel</button>
     </div>
   </div>
 </div>
@@ -321,6 +355,7 @@ function openForm(type) {
 function goBack() {
   document.getElementById("bookForm").style.display = "none";
   document.getElementById("reserveForm").style.display = "none";
+  document.getElementById("checkScreen").style.display = "none";
   document.getElementById("choiceScreen").style.display = "block";
 }
 
@@ -353,6 +388,13 @@ function showReceipt(data) {
   document.getElementById("tyPopup").classList.add("show");
 }
 
+function openCheckBooking() {
+  document.getElementById("choiceScreen").style.display = "none";
+  document.getElementById("checkScreen").style.display = "block";
+  document.getElementById("ck_email").value = "";
+  document.getElementById("ck_results").innerHTML = "";
+}
+
 // Auto-select event type from URL e.g. inquire.html?type=Birthday
 var urlParams = new URLSearchParams(window.location.search);
 var urlType = urlParams.get("type");
@@ -374,6 +416,73 @@ var _supa = window.supabase.createClient(
   "https://scgptbeecanjuboztweb.supabase.co",
   "sb_publishable_u-VSj6fOWDiipNrC9jZMgw_Oe4AZ_eX"
 );
+
+// ── CHECK / CANCEL BOOKING ──────────────────────────────────────────────────
+async function lookupBooking() {
+  var email = (document.getElementById("ck_email").value || "").trim().toLowerCase();
+  var resultsEl = document.getElementById("ck_results");
+  if (!email) { resultsEl.innerHTML = '<p style="color:#ff9999;font-size:14px;">Please enter your email address.</p>'; return; }
+  resultsEl.innerHTML = '<p style="color:rgba(255,255,255,0.6);font-size:14px;">Searching...</p>';
+  var { data, error } = await _supa.from("inquiries").select("*").ilike("email", email).order("created_at", {ascending:false});
+  if (error || !data || !data.length) {
+    resultsEl.innerHTML = '<p style="color:#ff9999;font-size:14px;text-align:center;padding:20px 0;">No booking found for that email.<br><small style="opacity:0.7">Double-check your email or contact us directly.</small></p>';
+    return;
+  }
+  resultsEl.innerHTML = "";
+  data.forEach(function(r) {
+    var card = document.createElement("div");
+    card.style.cssText = "background:rgba(255,255,255,0.1);border-radius:12px;padding:18px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.2);";
+    var typeBadge = r.status === "Book"
+      ? '<span style="background:#900202;color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;">BOOKING</span>'
+      : '<span style="background:#1565c0;color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;">RESERVATION</span>';
+    var statusColor = r.status === "Book" ? "#ff9999" : "#99ccff";
+    var submitted = r.created_at ? new Date(r.created_at).toLocaleDateString("en-PH",{year:"numeric",month:"long",day:"numeric"}) : "-";
+    card.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">' +
+        '<div>' + typeBadge + ' <span style="color:#fff;font-weight:700;font-size:14px;margin-left:8px;">' + (r.name||"") + '</span></div>' +
+        '<small style="color:rgba(255,255,255,0.5);">' + submitted + '</small>' +
+      '</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;">' +
+        '<div style="font-size:12px;color:rgba(255,255,255,0.6);">Event: <span style="color:#fff;">' + (r.event_type||"-") + '</span></div>' +
+        '<div style="font-size:12px;color:rgba(255,255,255,0.6);">Date: <span style="color:#fff;">' + (r.event_date||"-") + '</span></div>' +
+        '<div style="font-size:12px;color:rgba(255,255,255,0.6);">Venue: <span style="color:#fff;">' + (r.venue||"-") + '</span></div>' +
+        '<div style="font-size:12px;color:rgba(255,255,255,0.6);">Guests: <span style="color:#fff;">' + (r.guests||"-") + '</span></div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+        '<button onclick="viewMyReceipt(' + JSON.stringify(r).replace(/"/g,"&quot;") + ')" style="background:#fff;color:#900202;border:none;border-radius:7px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;">&#128203; View Receipt</button>' +
+        '<button onclick="confirmCancel(' + "'" + r.id + "'" + ')" style="background:transparent;color:#ff7070;border:1px solid #ff7070;border-radius:7px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;">&#10005; Cancel Booking</button>' +
+      '</div>';
+    resultsEl.appendChild(card);
+  });
+}
+
+function viewMyReceipt(r) {
+  // Reuse existing showReceipt but from lookup
+  showReceipt(r);
+}
+
+var _cancelId = null;
+function confirmCancel(id) {
+  _cancelId = id;
+  document.getElementById("cancelConfirmPopup").style.display = "flex";
+}
+
+async function doCancel() {
+  if (!_cancelId) return;
+  var { error } = await _supa.from("inquiries").delete().eq("id", _cancelId);
+  document.getElementById("cancelConfirmPopup").style.display = "none";
+  if (error) { alert("Failed to cancel: " + error.message); return; }
+  // Refresh results
+  lookupBooking();
+  // Show success message
+  var res = document.getElementById("ck_results");
+  var msg = document.createElement("div");
+  msg.style.cssText = "background:rgba(0,200,0,0.15);border:1px solid rgba(0,200,0,0.3);border-radius:8px;padding:12px 16px;margin-bottom:12px;color:#aaffaa;font-size:13px;text-align:center;";
+  msg.textContent = "Your booking has been successfully cancelled.";
+  res.prepend(msg);
+  setTimeout(function(){ if(msg.parentNode) msg.parentNode.removeChild(msg); }, 4000);
+  _cancelId = null;
+}
 
 document.addEventListener("DOMContentLoaded", function() {
 

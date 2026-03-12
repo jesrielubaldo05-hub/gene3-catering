@@ -13,12 +13,12 @@
     .hero-btn-book:hover { background:#6b0000; transform:scale(1.04); }
     .hero-btn-reserve { background:transparent; color:#fff; border:2px solid #fff; }
     .hero-btn-reserve:hover { background:rgba(255,255,255,0.15); transform:scale(1.04); }
-    .section-wrap { padding:60px 50px; }
+    .section-wrap { padding:60px 50px; width:100%; box-sizing:border-box; }
     .section-wrap.gray { background:#f9f9f9; }
     .section-wrap.white { background:#fff; }
     .section-label { font-size:12px; font-weight:700; color:#900202; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
     .section-title { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:#1a0000; margin-bottom:36px; }
-    .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:18px; }
+    .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
     .service-card { background:#fff9f9; border:1px solid #f0c0c0; border-radius:14px; padding:26px 16px; text-align:center; transition:transform 0.2s,box-shadow 0.2s; }
     .service-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(144,2,2,0.12); }
     .service-icon { font-size:34px; margin-bottom:10px; }
@@ -55,6 +55,7 @@
     .cta-btn-secondary:hover { background:rgba(255,255,255,0.1); transform:scale(1.04); }
     @media(max-width:768px) {
       .section-wrap { padding:40px 20px; }
+      .services-grid { grid-template-columns:repeat(2,1fr); }
       .gallery-grid { grid-template-columns:repeat(2,1fr); }
       .hero-actions { flex-direction:column; gap:10px; }
       .cta-section { padding:40px 20px; }
@@ -103,7 +104,7 @@
         </div>
     </header>
 
-    <main class="content-area">
+    <main class="content-area" style="display:block;padding:0;">
 
         <div class="why-choose-us">Why choose us?</div>
         <h2 class="middle-headline">Great Food. Exceptional Service. Unforgettable Experiences.</h2>
@@ -168,7 +169,7 @@
         <div class="footer-left">
             <h2 class="footer-logo">GENE 3'S CATERING SERVICE</h2>
             <p>Tambubong, San Rafael, Bulacan</p>
-            <p>gene3s@gmail.com</p>
+            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adcac8c3c89edeedcac0ccc4c183cec2c0">[email&#160;protected]</a></p>
             <p>091-2354-2562</p>
         </div>
         <div class="footer-right-links">
@@ -180,7 +181,7 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 var _supa = window.supabase.createClient(
   "https://scgptbeecanjuboztweb.supabase.co",
@@ -220,10 +221,11 @@ window.addEventListener("load", function() {
 });
 
 var navLinks = document.querySelectorAll(".nav-links a");
-var currentPage = window.location.pathname.split("/").pop();
+var currentPage = location.pathname.split("/").pop() || "index.html";
 navLinks.forEach(function(link) {
-  link.classList.remove("active");
-  if (link.getAttribute("href") === currentPage) link.classList.add("active");
+  if (link.getAttribute("href") === currentPage) {
+    link.classList.add("active");
+  }
 });
 </script>
 
