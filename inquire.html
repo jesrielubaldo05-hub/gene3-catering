@@ -354,13 +354,18 @@ function showReceipt(data) {
 }
 
 // Auto-select event type from URL e.g. inquire.html?type=Birthday
-var urlType = new URLSearchParams(window.location.search).get("type");
+var urlParams = new URLSearchParams(window.location.search);
+var urlType = urlParams.get("type");
+var urlAction = urlParams.get("action");
 if (urlType) {
   var bSelect = document.getElementById("b_event_type");
   var rSelect = document.getElementById("r_event_type");
   if (bSelect) bSelect.value = urlType;
   if (rSelect) rSelect.value = urlType;
 }
+// Auto-open book or reserve form from home page buttons
+if (urlAction === "book") { openForm("book"); }
+if (urlAction === "reserve") { openForm("reserve"); }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

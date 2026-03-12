@@ -4,28 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gene 3's Catering Service</title>
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+    .hero-actions { display:flex; gap:16px; margin-top:28px; flex-wrap:wrap; }
+    .hero-btn { padding:14px 36px; border-radius:30px; font-family:'Source Serif Pro',serif; font-size:1rem; font-weight:700; cursor:pointer; text-decoration:none; transition:transform 0.2s,background 0.2s; display:inline-block; }
+    .hero-btn-book { background:#900202; color:#fff; border:2px solid #900202; }
+    .hero-btn-book:hover { background:#6b0000; transform:scale(1.04); }
+    .hero-btn-reserve { background:transparent; color:#fff; border:2px solid #fff; }
+    .hero-btn-reserve:hover { background:rgba(255,255,255,0.15); transform:scale(1.04); }
+    .section-wrap { padding:60px 50px; }
+    .section-wrap.gray { background:#f9f9f9; }
+    .section-wrap.white { background:#fff; }
+    .section-label { font-size:12px; font-weight:700; color:#900202; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+    .section-title { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:#1a0000; margin-bottom:36px; }
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:18px; }
+    .service-card { background:#fff9f9; border:1px solid #f0c0c0; border-radius:14px; padding:26px 16px; text-align:center; transition:transform 0.2s,box-shadow 0.2s; }
+    .service-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(144,2,2,0.12); }
+    .service-icon { font-size:34px; margin-bottom:10px; }
+    .service-card h3 { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; color:#1a0000; margin-bottom:5px; }
+    .service-card p { font-size:12px; color:#888; line-height:1.5; }
+    .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .gallery-item { border-radius:12px; overflow:hidden; aspect-ratio:4/3; position:relative; }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; display:block; }
+    .gallery-item:hover img { transform:scale(1.06); }
+    .gallery-overlay { position:absolute; inset:0; background:rgba(144,2,2,0); transition:background 0.3s; display:flex; align-items:flex-end; padding:12px; }
+    .gallery-item:hover .gallery-overlay { background:rgba(144,2,2,0.45); }
+    .gallery-overlay span { color:#fff; font-weight:700; font-size:13px; opacity:0; transition:opacity 0.3s; }
+    .gallery-item:hover .gallery-overlay span { opacity:1; }
+    .reviews-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:18px; }
+    .review-card { background:#fff9f9; border:1px solid #f0c0c0; border-radius:14px; padding:22px; }
+    .review-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+    .review-avatar { width:40px; height:40px; border-radius:50%; background:#900202; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; }
+    .review-name { font-weight:700; color:#1a0000; font-size:14px; }
+    .review-stars { color:#f4a52a; font-size:13px; }
+    .review-text { color:#555; font-size:13px; line-height:1.7; }
+    .review-reply { margin-top:10px; background:#fff0f0; border-left:3px solid #900202; padding:8px 12px; border-radius:0 8px 8px 0; font-size:12px; color:#555; }
+    .review-reply strong { color:#900202; display:block; margin-bottom:2px; }
+    .no-reviews { text-align:center; color:#999; padding:40px; grid-column:1/-1; }
+    .see-all-btn { display:block; text-align:center; margin-top:24px; }
+    .see-all-btn a { color:#900202; font-weight:700; text-decoration:none; font-size:14px; border:2px solid #900202; padding:10px 28px; border-radius:30px; display:inline-block; transition:all 0.2s; }
+    .see-all-btn a:hover { background:#900202; color:#fff; }
+    .cta-section { background:linear-gradient(to right,#1C1C1C,#900202); padding:60px 50px; text-align:center; color:#fff; }
+    .cta-section h2 { font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:10px; }
+    .cta-section p { font-size:15px; opacity:0.85; margin-bottom:28px; }
+    .cta-buttons { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .cta-btn-primary { background:#fff; color:#900202; border:none; padding:13px 34px; border-radius:30px; font-weight:700; font-size:0.95rem; cursor:pointer; text-decoration:none; transition:transform 0.2s; display:inline-block; }
+    .cta-btn-primary:hover { transform:scale(1.04); }
+    .cta-btn-secondary { background:transparent; color:#fff; border:2px solid #fff; padding:13px 34px; border-radius:30px; font-weight:700; font-size:0.95rem; cursor:pointer; text-decoration:none; transition:transform 0.2s; display:inline-block; }
+    .cta-btn-secondary:hover { background:rgba(255,255,255,0.1); transform:scale(1.04); }
+    @media(max-width:768px) {
+      .section-wrap { padding:40px 20px; }
+      .gallery-grid { grid-template-columns:repeat(2,1fr); }
+      .hero-actions { flex-direction:column; gap:10px; }
+      .cta-section { padding:40px 20px; }
+    }
+    </style>
 </head>
-
 <body class="home-page">
-
 <div class="main-container">
 
-    <!-- HEADER / NAVBAR -->
     <header class="nav-box">
-
         <nav class="navbar">
-
             <div class="logo">
                 <div class="main-name">Gene 3's</div>
                 <div class="sub-name">Catering Service</div>
             </div>
-
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -35,105 +79,153 @@
                 <li><a href="inquire.html">Inquire</a></li>
                 <li><a href="contacts.html">Contact Us</a></li>
             </ul>
-
         </nav>
 
-
-        <!-- HERO SECTION -->
         <div class="hero-content">
-
             <div class="hero-text">
-
                 <h1 class="main-headline">
                     Your Perfect<br>
                     Celebration<br>
                     starts here!
                 </h1>
-
                 <p class="hero-description">
-                    From weddings to corporate gatherings, we craft delicious 
+                    From weddings to corporate gatherings, we craft delicious
                     experiences tailored to your taste. Book now and let us bring your vision to life!
                 </p>
-
+                <div class="hero-actions">
+                    <a href="inquire.html?action=book" class="hero-btn hero-btn-book">Book Now</a>
+                    <a href="inquire.html?action=reserve" class="hero-btn hero-btn-reserve">Reserve</a>
+                </div>
             </div>
-
-
-           <div class="hero-image-container">
+            <div class="hero-image-container">
                 <img src="https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=800&auto=format&fit=crop" alt="Catering Service">
-            </div> 
-            
+            </div>
         </div>
-
     </header>
 
-
-
-    <!-- MAIN CONTENT -->
     <main class="content-area">
 
-        <div class="why-choose-us">
-            Why choose us?
-        </div>
-
-        <h2 class="middle-headline">
-            Great Food. Exceptional Service. Unforgettable Experiences.
-        </h2>
-
+        <div class="why-choose-us">Why choose us?</div>
+        <h2 class="middle-headline">Great Food. Exceptional Service. Unforgettable Experiences.</h2>
         <p class="middle-description">
-            With years of experience in the catering industry, we bring professionalism and passion to every event. 
-            Our top priority is making your event stress-free and unforgettable. 
+            With years of experience in the catering industry, we bring professionalism and passion to every event.
+            Our top priority is making your event stress-free and unforgettable.
             We are committed to bringing your vision into reality.
         </p>
 
+        <!-- SERVICES -->
+        <section class="section-wrap white">
+            <div class="section-label">What We Offer</div>
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card"><div class="service-icon">💍</div><h3>Wedding</h3><p>Elegant setups and fine dining for your most special day.</p></div>
+                <div class="service-card"><div class="service-icon">🎂</div><h3>Birthday</h3><p>Memorable birthday celebrations with delicious food.</p></div>
+                <div class="service-card"><div class="service-icon">🍼</div><h3>Baptismal</h3><p>Celebrate new beginnings with a beautiful spread.</p></div>
+                <div class="service-card"><div class="service-icon">🏠</div><h3>House Blessing</h3><p>Welcome your new home with a hearty celebration.</p></div>
+                <div class="service-card"><div class="service-icon">🎓</div><h3>Graduation</h3><p>Honor your graduate with a feast to remember.</p></div>
+                <div class="service-card"><div class="service-icon">💑</div><h3>Anniversary</h3><p>Celebrate love and milestones with a beautiful dinner.</p></div>
+                <div class="service-card"><div class="service-icon">💼</div><h3>Corporate</h3><p>Professional catering for meetings and company events.</p></div>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section class="section-wrap gray">
+            <div class="section-label">Our Work</div>
+            <h2 class="section-title">Event Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=600&auto=format&fit=crop" alt="Wedding"><div class="gallery-overlay"><span>Wedding</span></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=600&auto=format&fit=crop" alt="Birthday"><div class="gallery-overlay"><span>Birthday</span></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=600&auto=format&fit=crop" alt="Buffet"><div class="gallery-overlay"><span>Buffet Setup</span></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=600&auto=format&fit=crop" alt="Celebration"><div class="gallery-overlay"><span>Celebration</span></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=600&auto=format&fit=crop" alt="Food"><div class="gallery-overlay"><span>Food Spread</span></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=600&auto=format&fit=crop" alt="Fine Dining"><div class="gallery-overlay"><span>Fine Dining</span></div></div>
+            </div>
+        </section>
+
+        <!-- REVIEWS -->
+        <section class="section-wrap white">
+            <div class="section-label">What Clients Say</div>
+            <h2 class="section-title">Customer Reviews</h2>
+            <div class="reviews-grid" id="homeReviewsGrid">
+                <div class="no-reviews">Loading reviews...</div>
+            </div>
+            <div class="see-all-btn"><a href="reviews.html">See All Reviews &rarr;</a></div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Ready to plan your event?</h2>
+            <p>Let Gene 3's Catering Service make your celebration truly unforgettable.</p>
+            <div class="cta-buttons">
+                <a href="inquire.html?action=book" class="cta-btn-primary">Book Now</a>
+                <a href="inquire.html?action=reserve" class="cta-btn-secondary">Make a Reservation</a>
+            </div>
+        </section>
+
     </main>
 
-
-
-    <!-- FOOTER -->
     <footer class="footer-box">
-
         <div class="footer-left">
-
-            <h2 class="footer-logo">
-                GENE 3’S CATERING SERVICE
-            </h2>
-
+            <h2 class="footer-logo">GENE 3'S CATERING SERVICE</h2>
             <p>Tambubong, San Rafael, Bulacan</p>
             <p>gene3s@gmail.com</p>
             <p>091-2354-2562</p>
-
         </div>
-
-
         <div class="footer-right-links">
-
             <a href="FAQS.html">FAQS</a>
-            <a href="terms_and_conditions.html">TERMS & CONDITIONS</a>
-            <a href="policy.html">PRIVACY POLICY</a>
-
+            <a href="terms_and_conditions.html">TERMS &amp; CONDITIONS</a>
+            <a href="privacy_policy.html">PRIVACY POLICY</a>
         </div>
-
     </footer>
-
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// Highlight current navbar link
-const navLinks = document.querySelectorAll(".nav-links a");
-const currentPage = window.location.pathname.split("/").pop(); // gets current filename
+var _supa = window.supabase.createClient(
+  "https://scgptbeecanjuboztweb.supabase.co",
+  "sb_publishable_u-VSj6fOWDiipNrC9jZMgw_Oe4AZ_eX"
+);
 
-navLinks.forEach(link => {
-    // Remove previous active if any
-    link.classList.remove("active");
-    
-    // Add active if link matches current page
-    if (link.getAttribute("href") === currentPage) {
-        link.classList.add("active");
-    }
+async function loadHomeReviews() {
+  var grid = document.getElementById("homeReviewsGrid");
+  if (!grid) return;
+  var result = await _supa.from("reviews").select("*").order("created_at", {ascending:false}).limit(3);
+  if (!result.data || !result.data.length) {
+    grid.innerHTML = '<div class="no-reviews">No reviews yet. Be the first to share your experience!</div>';
+    return;
+  }
+  grid.innerHTML = "";
+  result.data.forEach(function(r) {
+    var stars = "★".repeat(r.rating||0) + "☆".repeat(5-(r.rating||0));
+    var initial = r.name ? r.name[0].toUpperCase() : "?";
+    var reply = r.admin_reply
+      ? '<div class="review-reply"><strong>Response from Gene 3\'s Catering</strong>' + r.admin_reply + '</div>'
+      : '';
+    var card = document.createElement("div");
+    card.className = "review-card";
+    card.innerHTML =
+      '<div class="review-header">' +
+        '<div class="review-avatar">' + initial + '</div>' +
+        '<div><div class="review-name">' + (r.name||"Anonymous") + '</div>' +
+        '<div class="review-stars">' + stars + '</div></div>' +
+      '</div>' +
+      '<div class="review-text">' + (r.message||"") + '</div>' + reply;
+    grid.appendChild(card);
+  });
+}
+
+window.addEventListener("load", function() {
+  loadHomeReviews();
+});
+
+var navLinks = document.querySelectorAll(".nav-links a");
+var currentPage = window.location.pathname.split("/").pop();
+navLinks.forEach(function(link) {
+  link.classList.remove("active");
+  if (link.getAttribute("href") === currentPage) link.classList.add("active");
 });
 </script>
-
 
 </body>
 </html>
