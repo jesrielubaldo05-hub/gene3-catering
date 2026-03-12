@@ -640,29 +640,6 @@
 .login-error{color:#e53e3e;font-size:13px;margin-bottom:12px;display:none;}
 .logout-btn{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.4);padding:7px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;margin-left:16px;}
 .logout-btn:hover{background:rgba(255,255,255,0.25);}
-/* View Modal */
-.view-modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;}
-.view-modal-overlay.show{display:flex;}
-.view-modal{background:#fff;border-radius:16px;width:600px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-.view-modal-header{background:linear-gradient(to right,#1C1C1C,#900202);padding:20px 24px;border-radius:16px 16px 0 0;display:flex;justify-content:space-between;align-items:center;}
-.view-modal-header h2{color:#fff;font-size:18px;margin:0;}
-.view-modal-close{color:#fff;background:none;border:none;font-size:22px;cursor:pointer;line-height:1;}
-.view-modal-body{padding:24px;}
-.receipt-header{text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #f0f0f0;}
-.receipt-header h3{font-size:22px;color:#900202;margin-bottom:4px;}
-.receipt-header p{color:#999;font-size:13px;}
-.receipt-ref{background:#fff9f0;border:1px solid #f0c060;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
-.receipt-ref strong{color:#900202;font-size:16px;}
-.receipt-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:14px;}
-.receipt-row span:first-child{color:#888;font-weight:500;}
-.receipt-row span:last-child{color:#333;font-weight:600;text-align:right;max-width:60%;}
-.pay-status-btn{border:none;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:0.2s;}
-.pay-status-paid{background:#e8f5e9;color:#2e7d32;}
-.pay-status-pending{background:#fff3e0;color:#e65100;}
-.revenue-card{background:linear-gradient(135deg,#900202,#1C1C1C);border-radius:14px;padding:24px;color:#fff;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;}
-.revenue-card h3{font-size:14px;opacity:0.8;margin-bottom:6px;}
-.revenue-card .rev-amount{font-size:32px;font-weight:900;}
-.revenue-card .rev-icon{font-size:40px;opacity:0.3;}
 </style>
 </head>
 <body>
@@ -781,14 +758,7 @@
                 <div class="dashboard-grid">
                     <div class="card">
                         <h2 class="card-title">Recent Events</h2>
-                        <div class="revenue-card">
-              <div>
-                <h3>Total Revenue (Down Payments)</h3>
-                <div class="amount" id="totalRevenue">₱ 0.00</div>
-              </div>
-              <div class="icon"><i class="fas fa-peso-sign"></i></div>
-            </div>
-            <table class="table">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Client</th>
@@ -821,14 +791,7 @@
                 <h1 class="page-title">Bookings</h1>
                 
                 <div class="table-container">
-                    <div class="revenue-card">
-              <div>
-                <h3>Total Revenue (Down Payments)</h3>
-                <div class="amount" id="totalRevenue">₱ 0.00</div>
-              </div>
-              <div class="icon"><i class="fas fa-peso-sign"></i></div>
-            </div>
-            <table class="data-table">
+                    <table class="data-table">
                         <thead>
                             <tr>
                                 <th></th>
@@ -838,8 +801,7 @@
                                 <th>Event</th>
                                 <th>Venue</th>
                                 <th>Pax</th>
-                                <th>Payment</th>
-                                <th>Status</th>
+                                <th>Message</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -854,14 +816,7 @@
                 <h1 class="page-title">Reservations</h1>
                 
                 <div class="table-container">
-                    <div class="revenue-card">
-              <div>
-                <h3>Total Revenue (Down Payments)</h3>
-                <div class="amount" id="totalRevenue">₱ 0.00</div>
-              </div>
-              <div class="icon"><i class="fas fa-peso-sign"></i></div>
-            </div>
-            <table class="data-table">
+                    <table class="data-table">
                         <thead>
                             <tr>
                                 <th></th>
@@ -871,8 +826,7 @@
                                 <th>Event</th>
                                 <th>Venue</th>
                                 <th>Pax</th>
-                                <th>Payment</th>
-                                <th>Status</th>
+                                <th>Message</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -898,14 +852,7 @@
                 </div>
 
                 <div class="table-container">
-                    <div class="revenue-card">
-              <div>
-                <h3>Total Revenue (Down Payments)</h3>
-                <div class="amount" id="totalRevenue">₱ 0.00</div>
-              </div>
-              <div class="icon"><i class="fas fa-peso-sign"></i></div>
-            </div>
-            <table class="data-table">
+                    <table class="data-table">
                         <thead>
                             <tr>
                                 <th>Customer Name</th>
@@ -913,10 +860,11 @@
                                 <th>Amount Paid</th>
                                 <th>Payment Method</th>
                                 <th>Payment Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="paymentsTbody">
-                            <tr><td colspan="5" style="text-align:center;padding:60px;color:#999">Loading...</td></tr>
+                            <tr><td colspan="6" style="text-align:center;padding:60px;color:#999">Loading...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1374,13 +1322,15 @@ async function loadPayments() {
   if (revenueEl) revenueEl.textContent = "PHP " + totalRevenue.toLocaleString("en-PH", {minimumFractionDigits:2});
 
   if (!data.length) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:60px;color:#999"><i class="fas fa-receipt" style="font-size:48px;display:block;margin-bottom:15px;color:#ddd;"></i>No payment records available</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:60px;color:#999"><i class="fas fa-receipt" style="font-size:48px;display:block;margin-bottom:15px;color:#ddd;"></i>No payment records available</td></tr>';
     return;
   }
   data.forEach((r, i) => {
     const ref = "#GEN-" + String(r.id || i+1).padStart(4,"0");
-    const statusLabel = r.status === "Book" ? "Booked" : "Reserved";
-    const statusClass = r.status === "Book" ? "completed" : "ongoing";
+    const isPaid = r.payment_status === "Paid";
+    const paidBadge = isPaid
+      ? '<span style="background:#2e7d32;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">Paid</span>'
+      : '<span style="background:#e65100;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">Pending</span>';
     tbody.innerHTML += `<tr>
       <td>
         <div style="display:flex;align-items:center;gap:10px;">
@@ -1389,9 +1339,10 @@ async function loadPayments() {
         </div>
       </td>
       <td style="color:#666;font-size:13px;">${ref}</td>
-      <td>${r.down_payment ? "₱ " + Number(r.down_payment).toLocaleString() : "-"}</td>
+      <td>${r.down_payment ? "&#8369; " + Number(r.down_payment).toLocaleString() : "-"}</td>
       <td>${r.payment_method || "-"}</td>
-      <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+      <td>${paidBadge}</td>
+      <td><button onclick="togglePaymentStatus('${r.id}','${isPaid?'Pending':'Paid'}')" style="background:${isPaid?'#e65100':'#2e7d32'};color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;">${isPaid?'Mark Pending':'Mark Paid'}</button></td>
     </tr>`;
   });
 }
@@ -1410,16 +1361,14 @@ async function loadBookings() {
   const tbody = document.querySelector("#booking .data-table tbody");
   if (!tbody) return;
   tbody.innerHTML = "";
-  if (!data.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:30px;color:#999">No bookings yet</td></tr>'; return; }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:30px;color:#999">No bookings yet</td></tr>'; return; }
+  // cache for view modal
+  data.forEach(r => { if (!_allInquiries.find(x=>x.id===r.id)) _allInquiries.push(r); });
   data.forEach(r => {
     const checked = r.is_read ? 'checked' : '';
     const checkedStyle = r.is_read ? 'background:#c62828;border:2px solid #c62828;' : '';
     const checkedIcon = r.is_read ? '<i class="fas fa-check" style="color:white;font-size:12px;"></i>' : '';
     const rowOpacity = r.is_read ? 'opacity:0.4;' : '';
-    const isPaid = r.payment_status === 'Paid';
-    const payBadge = isPaid
-      ? '<span class="status-badge completed">Paid</span>'
-      : '<span class="status-badge pending" style="background:#fff3cd;color:#856404;">Pending</span>';
     tbody.innerHTML += `<tr style="${rowOpacity}" data-id="${r.id}">
       <td><div class="checkbox ${checked}" style="${checkedStyle}" data-id="${r.id}">${checkedIcon}</div></td>
       <td><div class="avatar" style="width:32px;height:32px;border-radius:50%;background:#900202;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">${r.name?r.name[0].toUpperCase():"?"}</div></td>
@@ -1428,9 +1377,12 @@ async function loadBookings() {
       <td>${r.event_type||""}</td>
       <td>${r.venue||"-"}</td>
       <td>${r.guests||""}</td>
-      <td>${payBadge}</td>
-      <td><button onclick="togglePaymentStatus('${r.id}','${isPaid?'Pending':'Paid'}')" style="background:${isPaid?'#c62828':'#2e7d32'};color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;">${isPaid?'Mark Pending':'Mark Paid'}</button></td>
-      <td><button onclick="viewBooking(${JSON.stringify(r).replace(/"/g,'&quot;')})" style="background:#900202;color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;"><i class="fas fa-eye"></i> View</button></td>
+      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.message||''}">${r.message||"-"}</td>
+      <td>
+        <div style="display:flex;gap:6px;">
+          <button class="view-btn" data-id="${r.id}" style="background:#900202;color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;white-space:nowrap;"><i class="fas fa-eye"></i> View</button>
+        </div>
+      </td>
     </tr>`;
   });
   updateBellFromChecked();
@@ -1442,16 +1394,14 @@ async function loadReservations() {
   const tbody = document.querySelector("#reservation .data-table tbody");
   if (!tbody) return;
   tbody.innerHTML = "";
-  if (!data.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:30px;color:#999">No reservations yet</td></tr>'; return; }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:30px;color:#999">No reservations yet</td></tr>'; return; }
+  // cache for view modal
+  data.forEach(r => { if (!_allInquiries.find(x=>x.id===r.id)) _allInquiries.push(r); });
   data.forEach(r => {
     const checked = r.is_read ? 'checked' : '';
     const checkedStyle = r.is_read ? 'background:#c62828;border:2px solid #c62828;' : '';
     const checkedIcon = r.is_read ? '<i class="fas fa-check" style="color:white;font-size:12px;"></i>' : '';
     const rowOpacity = r.is_read ? 'opacity:0.4;' : '';
-    const isPaid = r.payment_status === 'Paid';
-    const payBadge = isPaid
-      ? '<span class="status-badge completed">Paid</span>'
-      : '<span class="status-badge pending" style="background:#fff3cd;color:#856404;">Pending</span>';
     tbody.innerHTML += `<tr style="${rowOpacity}" data-id="${r.id}">
       <td><div class="checkbox ${checked}" style="${checkedStyle}" data-id="${r.id}">${checkedIcon}</div></td>
       <td><div class="avatar" style="width:32px;height:32px;border-radius:50%;background:#900202;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">${r.name?r.name[0].toUpperCase():"?"}</div></td>
@@ -1460,9 +1410,12 @@ async function loadReservations() {
       <td>${r.event_type||""}</td>
       <td>${r.venue||"-"}</td>
       <td>${r.guests||""}</td>
-      <td>${payBadge}</td>
-      <td><button onclick="togglePaymentStatus('${r.id}','${isPaid?'Pending':'Paid'}')" style="background:${isPaid?'#c62828':'#2e7d32'};color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;">${isPaid?'Mark Pending':'Mark Paid'}</button></td>
-      <td><button onclick="viewBooking(${JSON.stringify(r).replace(/"/g,'&quot;')})" style="background:#900202;color:#fff;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px;"><i class="fas fa-eye"></i> View</button></td>
+      <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.message||''}">${r.message||"-"}</td>
+      <td>
+        <div style="display:flex;gap:6px;">
+          <button class="view-btn" data-id="${r.id}" style="background:#900202;color:#fff;border:none;border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;white-space:nowrap;"><i class="fas fa-eye"></i> View</button>
+        </div>
+      </td>
     </tr>`;
   });
   updateBellFromChecked();
@@ -1590,6 +1543,57 @@ async function confirmDeleteReview() {
   loadFeedbacks();
   loadDashboard();
 }
+
+
+async function togglePaymentStatus(id, newStatus) {
+  const { error } = await _supa.from("inquiries").update({ payment_status: newStatus }).eq("id", id);
+  if (error) { alert("Failed to update: " + error.message); return; }
+  loadPayments();
+  loadBookings();
+  loadReservations();
+}
+
+// Store all inquiry data for view modal
+let _allInquiries = [];
+
+function openViewModal(id) {
+  const r = _allInquiries.find(x => String(x.id) === String(id));
+  if (!r) return;
+  document.getElementById("vmAvatar").textContent = r.name ? r.name[0].toUpperCase() : "?";
+  document.getElementById("vmName").textContent = r.name || "-";
+  document.getElementById("vmEmail").textContent = r.email || "-";
+  document.getElementById("vmContact").textContent = r.contact || "-";
+  document.getElementById("vmEventType").textContent = r.event_type || "-";
+  document.getElementById("vmEventDate").textContent = r.event_date || "-";
+  document.getElementById("vmVenue").textContent = r.venue || "-";
+  document.getElementById("vmGuests").textContent = r.guests ? r.guests + " guests" : "-";
+  document.getElementById("vmDownPayment").textContent = r.down_payment ? "\u20b1 " + Number(r.down_payment).toLocaleString() : "-";
+  document.getElementById("vmPaymentMethod").textContent = r.payment_method || "-";
+  document.getElementById("vmAddress").textContent = r.address || "-";
+  document.getElementById("vmMessage").textContent = r.message || "No message provided.";
+  var badge = document.getElementById("vmTypeBadge");
+  badge.textContent = r.status === "Book" ? "Booking" : "Reservation";
+  badge.style.cssText = "display:inline-block;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;margin-top:6px;background:" + (r.status === "Book" ? "#900202" : "#1565c0") + ";color:#fff;";
+  var isPaid = r.payment_status === "Paid";
+  document.getElementById("vmPayStatus").innerHTML = isPaid
+    ? '<span style="background:#2e7d32;color:#fff;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;">Paid</span>'
+    : '<span style="background:#e65100;color:#fff;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;">Pending</span>';
+  var payBtn = document.getElementById("vmPayBtn");
+  payBtn.textContent = isPaid ? "Mark as Pending" : "Mark as Paid";
+  payBtn.style.cssText = "border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-weight:700;font-size:13px;background:" + (isPaid ? "#e65100" : "#2e7d32") + ";color:#fff;";
+  payBtn.onclick = function() {
+    togglePaymentStatus(r.id, isPaid ? "Pending" : "Paid");
+    document.getElementById("viewModal").style.display = "none";
+  };
+  document.getElementById("viewModal").style.display = "flex";
+}
+
+// Delegated click for view buttons
+document.addEventListener("click", function(e) {
+  var btn = e.target.closest(".view-btn");
+  if (!btn) return;
+  openViewModal(btn.getAttribute("data-id"));
+});
 
 async function loadContacts() {
   const { data, error } = await _supa.from("contacts").select("*").order("created_at",{ascending:false});
@@ -1759,149 +1763,80 @@ navLinks.forEach(link => {
   </div>
 </div>
 
-<!-- View Booking Modal -->
-<div id="viewModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:16px;width:90%;max-width:540px;max-height:88vh;overflow-y:auto;padding:32px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-    <button onclick="document.getElementById('viewModal').style.display='none'" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#999;">&times;</button>
-    <div style="text-align:center;margin-bottom:20px;">
-      <div style="width:60px;height:60px;border-radius:50%;background:#900202;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;margin:0 auto 10px;" id="vmAvatar">?</div>
-      <h2 style="margin:0;color:#1a0000;font-family:'Playfair Display',serif;" id="vmName"></h2>
-      <span id="vmTypeBadge" style="display:inline-block;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;margin-top:6px;"></span>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-      <div style="background:#f9f9f9;border-radius:8px;padding:12px;"><div style="font-size:11px;color:#999;margin-bottom:4px;">EMAIL</div><div id="vmEmail" style="font-size:14px;color:#333;word-break:break-all;"></div></div>
-      <div style="background:#f9f9f9;border-radius:8px;padding:12px;"><div style="font-size:11px;color:#999;margin-bottom:4px;">CONTACT</div><div id="vmContact" style="font-size:14px;color:#333;"></div></div>
-      <div style="background:#f9f9f9;border-radius:8px;padding:12px;"><div style="font-size:11px;color:#999;margin-bottom:4px;">EVENT TYPE</div><div id="vmEventType" style="font-size:14px;color:#333;"></div></div>
-      <div style="background:#f9f9f9;border-radius:8px;padding:12px;"><div style="font-size:11px;color:#999;margin-bottom:4px;">EVENT DATE</div><div id="vmEventDate" style="font-size:14px;color:#333;"></div></div>
-      <div style="background:#f9f9f9;border-radius:8px;padding:12px;"><div style="font-size:11px;color:#999;margin-bottom:4px;">VENUE</div><div id="vmVenue" style="font-size:14px;color:#333;"></div></div>
-      <div style="background:#f9f9f9;border-radius:8px;padding:12px;"><div style="font-size:11px;color:#999;margin-bottom:4px;">GUESTS</div><div id="vmGuests" style="font-size:14px;color:#333;"></div></div>
-      <div style="background:#f9f9f9;border-radius:8px;padding:12px;"><div style="font-size:11px;color:#999;margin-bottom:4px;">DOWN PAYMENT</div><div id="vmDownPayment" style="font-size:14px;color:#333;"></div></div>
-      <div style="background:#f9f9f9;border-radius:8px;padding:12px;"><div style="font-size:11px;color:#999;margin-bottom:4px;">PAYMENT METHOD</div><div id="vmPaymentMethod" style="font-size:14px;color:#333;"></div></div>
-    </div>
-    <div style="background:#f9f9f9;border-radius:8px;padding:12px;margin-bottom:16px;">
-      <div style="font-size:11px;color:#999;margin-bottom:4px;">ADDRESS</div>
-      <div id="vmAddress" style="font-size:14px;color:#333;"></div>
-    </div>
-    <div style="background:#f9f9f9;border-radius:8px;padding:12px;margin-bottom:20px;">
-      <div style="font-size:11px;color:#999;margin-bottom:4px;">MESSAGE</div>
-      <div id="vmMessage" style="font-size:14px;color:#333;white-space:pre-wrap;line-height:1.6;"></div>
-    </div>
-    <div style="display:flex;gap:10px;justify-content:flex-end;">
-      <button id="vmPayBtn" style="background:#2e7d32;color:#fff;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-weight:700;">Mark as Paid</button>
-      <button onclick="document.getElementById('viewModal').style.display='none'" style="background:#eee;color:#333;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-weight:700;">Close</button>
-    </div>
-  </div>
-</div>
 
-<script>
-function viewBooking(r) {
-  document.getElementById("vmAvatar").textContent = r.name ? r.name[0].toUpperCase() : "?";
-  document.getElementById("vmName").textContent = r.name || "-";
-  document.getElementById("vmEmail").textContent = r.email || "-";
-  document.getElementById("vmContact").textContent = r.contact || "-";
-  document.getElementById("vmEventType").textContent = r.event_type || "-";
-  document.getElementById("vmEventDate").textContent = r.event_date || "-";
-  document.getElementById("vmVenue").textContent = r.venue || "-";
-  document.getElementById("vmGuests").textContent = r.guests ? r.guests + " guests" : "-";
-  document.getElementById("vmDownPayment").textContent = r.down_payment ? "₱ " + Number(r.down_payment).toLocaleString() : "-";
-  document.getElementById("vmPaymentMethod").textContent = r.payment_method || "-";
-  document.getElementById("vmAddress").textContent = r.address || "-";
-  document.getElementById("vmMessage").textContent = r.message || "No message provided.";
-  var badge = document.getElementById("vmTypeBadge");
-  badge.textContent = r.status === "Book" ? "Booking" : "Reservation";
-  badge.style.background = r.status === "Book" ? "#900202" : "#1565c0";
-  badge.style.color = "#fff";
-  var isPaid = r.payment_status === "Paid";
-  var payBtn = document.getElementById("vmPayBtn");
-  payBtn.textContent = isPaid ? "Mark as Pending" : "Mark as Paid";
-  payBtn.style.background = isPaid ? "#c62828" : "#2e7d32";
-  payBtn.onclick = function() {
-    togglePaymentStatus(r.id, isPaid ? "Pending" : "Paid");
-    document.getElementById("viewModal").style.display = "none";
-  };
-  document.getElementById("viewModal").style.display = "flex";
-}
+<!-- ═══ VIEW BOOKING / RESERVATION MODAL ═══ -->
+<div id="viewModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.65);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:18px;width:93%;max-width:580px;max-height:92vh;overflow-y:auto;padding:36px 32px 28px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.3);">
+    <button onclick="document.getElementById('viewModal').style.display='none'" style="position:absolute;top:16px;right:18px;background:none;border:none;font-size:24px;cursor:pointer;color:#bbb;line-height:1;">&times;</button>
 
-async function togglePaymentStatus(id, newStatus) {
-  await _supa.from("inquiries").update({ payment_status: newStatus }).eq("id", id);
-  loadBookings();
-  loadReservations();
-  loadPayments();
-}
-</script>
-
-<!-- View Booking Modal -->
-<div class="view-modal-overlay" id="viewModalOverlay">
-  <div class="view-modal">
-    <div class="view-modal-header">
-      <h2><i class="fas fa-receipt" style="margin-right:8px;"></i>Booking Receipt</h2>
-      <button class="view-modal-close" onclick="closeViewModal()">&times;</button>
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:24px;">
+      <div id="vmAvatar" style="width:64px;height:64px;border-radius:50%;background:#900202;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;margin:0 auto 10px;">?</div>
+      <h2 id="vmName" style="margin:0;color:#1a0000;font-size:20px;font-weight:700;"></h2>
+      <span id="vmTypeBadge" style="display:inline-block;padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;margin-top:6px;"></span>
     </div>
-    <div class="view-modal-body" id="viewModalBody">
+
+    <!-- Details grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div style="background:#f9f9f9;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Email</div>
+        <div id="vmEmail" style="font-size:13px;color:#333;word-break:break-all;font-weight:500;"></div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Contact</div>
+        <div id="vmContact" style="font-size:13px;color:#333;font-weight:500;"></div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Event Type</div>
+        <div id="vmEventType" style="font-size:13px;color:#333;font-weight:500;"></div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Event Date</div>
+        <div id="vmEventDate" style="font-size:13px;color:#333;font-weight:500;"></div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Venue</div>
+        <div id="vmVenue" style="font-size:13px;color:#333;font-weight:500;"></div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Guests</div>
+        <div id="vmGuests" style="font-size:13px;color:#333;font-weight:500;"></div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Down Payment</div>
+        <div id="vmDownPayment" style="font-size:13px;color:#333;font-weight:500;"></div>
+      </div>
+      <div style="background:#f9f9f9;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Payment Method</div>
+        <div id="vmPaymentMethod" style="font-size:13px;color:#333;font-weight:500;"></div>
+      </div>
+    </div>
+
+    <div style="background:#f9f9f9;border-radius:8px;padding:12px;margin-bottom:10px;">
+      <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Address</div>
+      <div id="vmAddress" style="font-size:13px;color:#333;font-weight:500;"></div>
+    </div>
+
+    <div style="background:#f9f9f9;border-radius:8px;padding:12px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">Payment Status</div>
+        <div id="vmPayStatus"></div>
+      </div>
+    </div>
+
+    <!-- Full message -->
+    <div style="background:#fff8f0;border:1px solid #ffe0c0;border-radius:8px;padding:14px;margin-bottom:20px;">
+      <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">&#128172; Customer Message</div>
+      <div id="vmMessage" style="font-size:13px;color:#444;white-space:pre-wrap;line-height:1.75;max-height:220px;overflow-y:auto;"></div>
+    </div>
+
+    <!-- Actions -->
+    <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+      <button id="vmPayBtn" style="border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;font-size:13px;background:#2e7d32;color:#fff;"></button>
+      <button onclick="document.getElementById('viewModal').style.display='none'" style="background:#eee;color:#555;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;font-size:13px;">Close</button>
     </div>
   </div>
 </div>
-
-<script>
-var _allInquiries = [];
-
-async function viewBooking(id) {
-  // Load from cache or fetch
-  var r = _allInquiries.find(function(x){ return x.id === id; });
-  if (!r) {
-    var res = await _supa.from("inquiries").select("*").eq("id", id).single();
-    if (res.error) { alert("Could not load booking."); return; }
-    r = res.data;
-  }
-  var ref = "#GEN-" + String(r.id).padStart(4,"0");
-  var date = r.created_at ? new Date(r.created_at).toLocaleDateString("en-PH",{year:"numeric",month:"long",day:"numeric"}) : "-";
-  var payBadge = r.payment_status === "Paid"
-    ? '<span style="background:#e8f5e9;color:#2e7d32;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;">Paid</span>'
-    : '<span style="background:#fff3e0;color:#e65100;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;">Pending</span>';
-
-  document.getElementById("viewModalBody").innerHTML =
-    '<div class="receipt-header">' +
-      '<h3>Gene 3\'s Catering Service</h3>' +
-      '<p>Tambubong San Rafael Bulacan &bull; gene3s@gmail.com &bull; 091-2314-2562</p>' +
-    '</div>' +
-    '<div class="receipt-ref">' +
-      '<div><strong>' + ref + '</strong><br><span style="font-size:11px;color:#999;">' + r.status + ' &bull; ' + date + '</span></div>' +
-      '<div>' + payBadge + '</div>' +
-    '</div>' +
-    '<div class="receipt-row"><span>Full Name</span><span>' + (r.name||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>Email</span><span>' + (r.email||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>Phone</span><span>' + (r.contact||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>Address</span><span>' + (r.address||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>Event Type</span><span>' + (r.event_type||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>Event Date</span><span>' + (r.event_date||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>Venue</span><span>' + (r.venue||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>No. of Guests</span><span>' + (r.guests||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>Payment Method</span><span>' + (r.payment_method||"-") + '</span></div>' +
-    '<div class="receipt-row"><span>Down Payment</span><span>' + (r.down_payment ? "₱ " + Number(r.down_payment).toLocaleString() : "-") + '</span></div>' +
-    '<div class="receipt-row" style="border-bottom:none;padding-top:12px;"><span>Message</span><span style="white-space:pre-wrap;text-align:left;">' + (r.message||"-") + '</span></div>';
-
-  document.getElementById("viewModalOverlay").classList.add("show");
-}
-
-function closeViewModal() {
-  document.getElementById("viewModalOverlay").classList.remove("show");
-}
-
-// Close modal on outside click
-document.getElementById("viewModalOverlay").addEventListener("click", function(e) {
-  if (e.target === this) closeViewModal();
-});
-
-async function togglePayStatus(id, currentStatus) {
-  var newStatus = currentStatus === "Paid" ? "Pending" : "Paid";
-  var res = await _supa.from("inquiries").update({payment_status: newStatus}).eq("id", id);
-  if (res.error) { alert("Failed to update payment status."); return; }
-  // Reload both tables
-  loadBookings();
-  loadReservations();
-  loadPayments();
-}
-</script>
 
 </body>
 </html>
