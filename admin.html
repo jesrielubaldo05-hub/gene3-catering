@@ -857,10 +857,10 @@
                             <tr>
                                 <th>Customer Name</th>
                                 <th>Booking Reference</th>
+                                <th>Type</th>
                                 <th>Amount Paid</th>
                                 <th>Payment Method</th>
                                 <th>Payment Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="paymentsTbody">
@@ -1327,10 +1327,11 @@ async function loadPayments() {
   }
   data.forEach((r, i) => {
     const ref = "#GEN-" + String(r.id || i+1).padStart(4,"0");
-    const isPaid = r.payment_status === "Paid";
-    const paidBadge = isPaid
-      ? '<span style="background:#2e7d32;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">Paid</span>'
-      : '<span style="background:#e65100;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">Pending</span>';
+    const isBook = r.status === "Book";
+    const typeBadge = isBook
+      ? '<span style="background:#900202;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">Booking</span>'
+      : '<span style="background:#1565c0;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">Reservation</span>';
+    const curStatus = r.payment_status || "Pending";
     tbody.innerHTML += `<tr>
       <td>
         <div style="display:flex;align-items:center;gap:10px;">
@@ -1339,10 +1340,15 @@ async function loadPayments() {
         </div>
       </td>
       <td style="color:#666;font-size:13px;">${ref}</td>
+      <td>${typeBadge}</td>
       <td>${r.down_payment ? "&#8369; " + Number(r.down_payment).toLocaleString() : "-"}</td>
       <td>${r.payment_method || "-"}</td>
-      <td>${paidBadge}</td>
-      <td><button onclick="togglePaymentStatus('${r.id}','${isPaid?'Pending':'Paid'}')" style="background:${isPaid?'#e65100':'#2e7d32'};color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;">${isPaid?'Mark Pending':'Mark Paid'}</button></td>
+      <td>
+        <select onchange="togglePaymentStatus('${r.id}', this.value)" style="border:2px solid ${curStatus==='Paid'?'#2e7d32':'#e65100'};background:${curStatus==='Paid'?'#f0fff0':'#fff5f0'};color:${curStatus==='Paid'?'#2e7d32':'#e65100'};border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22><path fill=%22%23888%22 d=%22M6 8L1 3h10z%22/></svg>');background-repeat:no-repeat;background-position:right 8px center;padding-right:26px;">
+          <option value="Pending" ${curStatus==='Pending'?'selected':''}>Pending</option>
+          <option value="Paid" ${curStatus==='Paid'?'selected':''}>Paid</option>
+        </select>
+      </td>
     </tr>`;
   });
 }
