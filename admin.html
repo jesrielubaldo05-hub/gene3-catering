@@ -1584,7 +1584,10 @@ function openViewModal(id) {
   document.getElementById("vmPayStatus").innerHTML = isPaid
     ? '<span style="background:#2e7d32;color:#fff;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;">Paid</span>'
     : '<span style="background:#e65100;color:#fff;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;">Pending</span>';
+  document.getElementById("viewModal").setAttribute("data-current-id", r.id);
   document.getElementById("viewModal").style.display = "flex";
+  var cancelBtn = document.getElementById("vmCancelBtn");
+  if (cancelBtn) cancelBtn.style.display = (r.status === "Cancelled") ? "none" : "inline-block";
 }
 
 // Delegated click for view buttons
@@ -1831,10 +1834,68 @@ navLinks.forEach(link => {
 
     <!-- Actions -->
     <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+      <button id="vmCancelBtn" onclick="promptCancelBooking()" style="background:#fff;color:#c62828;border:2px solid #c62828;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;font-size:13px;display:none;"><i class="fas fa-ban"></i> Cancel Booking</button>
       <button onclick="document.getElementById('viewModal').style.display='none'" style="background:#eee;color:#555;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;font-size:13px;">Close</button>
     </div>
   </div>
 </div>
+
+
+<!-- Cancel Confirmation Modal -->
+<div id="cancelModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.65);z-index:10000;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:18px;width:90%;max-width:420px;padding:36px 32px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,0.3);">
+    <div style="width:64px;height:64px;border-radius:50%;background:#ffebee;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;">🚫</div>
+    <h3 style="margin:0 0 10px;color:#1a0000;font-size:20px;font-weight:700;">Cancel this Booking?</h3>
+    <p style="color:#777;font-size:14px;margin-bottom:8px;">This will mark the booking as <strong style="color:#c62828;">Cancelled</strong>.</p>
+    <p style="color:#aaa;font-size:12px;margin-bottom:28px;">Use this to flag suspicious or fraudulent inquiries. The record will be kept for reference.</p>
+    <div id="cancelReasonWrap" style="margin-bottom:20px;text-align:left;">
+      <label style="font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Reason (optional)</label>
+      <textarea id="cancelReason" rows="3" placeholder="e.g. Suspicious contact info, no response, suspected scammer..." style="width:100%;border:1px solid #e0e0e0;border-radius:8px;padding:10px;font-size:13px;resize:none;outline:none;color:#333;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button onclick="document.getElementById('cancelModal').style.display='none'" style="background:#eee;color:#555;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-weight:700;font-size:14px;">Go Back</button>
+      <button onclick="confirmCancelBooking()" style="background:#c62828;color:#fff;border:none;border-radius:8px;padding:10px 24px;cursor:pointer;font-weight:700;font-size:14px;"><i class="fas fa-ban"></i> Yes, Cancel It</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var _cancelTargetId = null;
+
+function promptCancelBooking() {
+  var modal = document.getElementById("viewModal");
+  var id = modal ? modal.getAttribute("data-current-id") : null;
+  if (!id) return;
+  _cancelTargetId = id;
+  document.getElementById("cancelReason").value = "";
+  document.getElementById("cancelModal").style.display = "flex";
+}
+
+async function confirmCancelBooking() {
+  if (!_cancelTargetId) return;
+  var reason = document.getElementById("cancelReason").value.trim();
+  var updateData = { status: "Cancelled" };
+  if (reason) updateData.message = (reason ? "[CANCELLED: " + reason + "]" : "");
+  var { error } = await _supa.from("inquiries").update(updateData).eq("id", _cancelTargetId);
+  if (error) { alert("Error: " + error.message); return; }
+  document.getElementById("cancelModal").style.display = "none";
+  document.getElementById("viewModal").style.display = "none";
+  _cancelTargetId = null;
+  loadBookings();
+  loadReservations();
+}
+
+// Wire up cancel-btn clicks in tables
+document.addEventListener("click", function(e) {
+  var btn = e.target.closest(".cancel-btn");
+  if (!btn) return;
+  var id = btn.getAttribute("data-id");
+  if (!id) return;
+  _cancelTargetId = id;
+  document.getElementById("cancelReason").value = "";
+  document.getElementById("cancelModal").style.display = "flex";
+});
+</script>
 
 </body>
 </html>
