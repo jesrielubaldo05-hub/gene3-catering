@@ -335,11 +335,15 @@
         }
 
         .checkbox {
-            width: 20px;
-            height: 20px;
+            width: 28px;
+            height: 28px;
             border: 2px solid #ddd;
-            border-radius: 3px;
+            border-radius: 5px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         /* Feedbacks */
@@ -1146,7 +1150,7 @@
             if (isChecked) {
                 checkbox.style.background = '#c62828';
                 checkbox.style.border = '2px solid #c62828';
-                checkbox.innerHTML = '<i class="fas fa-check" style="color:white;font-size:12px;"></i>';
+                checkbox.innerHTML = '<i class="fas fa-check" style="color:white;font-size:16px;"></i>';
                 const row = checkbox.closest('tr');
                 if (row) { row.style.transition = 'opacity 0.4s'; row.style.opacity = '0.4'; }
             } else {
@@ -1373,7 +1377,7 @@ async function loadBookings() {
   data.forEach(r => {
     const checked = r.is_read ? 'checked' : '';
     const checkedStyle = r.is_read ? 'background:#c62828;border:2px solid #c62828;' : '';
-    const checkedIcon = r.is_read ? '<i class="fas fa-check" style="color:white;font-size:12px;"></i>' : '';
+    const checkedIcon = r.is_read ? '<i class="fas fa-check" style="color:white;font-size:16px;"></i>' : '';
     const rowOpacity = r.is_read ? 'opacity:0.4;' : '';
     tbody.innerHTML += `<tr style="${rowOpacity}" data-id="${r.id}">
       <td><div class="checkbox ${checked}" style="${checkedStyle}" data-id="${r.id}">${checkedIcon}</div></td>
@@ -1406,7 +1410,7 @@ async function loadReservations() {
   data.forEach(r => {
     const checked = r.is_read ? 'checked' : '';
     const checkedStyle = r.is_read ? 'background:#c62828;border:2px solid #c62828;' : '';
-    const checkedIcon = r.is_read ? '<i class="fas fa-check" style="color:white;font-size:12px;"></i>' : '';
+    const checkedIcon = r.is_read ? '<i class="fas fa-check" style="color:white;font-size:16px;"></i>' : '';
     const rowOpacity = r.is_read ? 'opacity:0.4;' : '';
     tbody.innerHTML += `<tr style="${rowOpacity}" data-id="${r.id}">
       <td><div class="checkbox ${checked}" style="${checkedStyle}" data-id="${r.id}">${checkedIcon}</div></td>
