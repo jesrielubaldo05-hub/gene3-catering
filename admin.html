@@ -802,7 +802,7 @@
                                 <th>Venue</th>
                                 <th>Pax</th>
                                 <th>Message</th>
-                                <th>Actions</th>
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -827,7 +827,7 @@
                                 <th>Venue</th>
                                 <th>Pax</th>
                                 <th>Message</th>
-                                <th>Actions</th>
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1584,13 +1584,6 @@ function openViewModal(id) {
   document.getElementById("vmPayStatus").innerHTML = isPaid
     ? '<span style="background:#2e7d32;color:#fff;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;">Paid</span>'
     : '<span style="background:#e65100;color:#fff;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;">Pending</span>';
-  var payBtn = document.getElementById("vmPayBtn");
-  payBtn.textContent = isPaid ? "Mark as Pending" : "Mark as Paid";
-  payBtn.style.cssText = "border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-weight:700;font-size:13px;background:" + (isPaid ? "#e65100" : "#2e7d32") + ";color:#fff;";
-  payBtn.onclick = function() {
-    togglePaymentStatus(r.id, isPaid ? "Pending" : "Paid");
-    document.getElementById("viewModal").style.display = "none";
-  };
   document.getElementById("viewModal").style.display = "flex";
 }
 
@@ -1838,7 +1831,6 @@ navLinks.forEach(link => {
 
     <!-- Actions -->
     <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
-      <button id="vmPayBtn" style="border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;font-size:13px;background:#2e7d32;color:#fff;"></button>
       <button onclick="document.getElementById('viewModal').style.display='none'" style="background:#eee;color:#555;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;font-size:13px;">Close</button>
     </div>
   </div>
