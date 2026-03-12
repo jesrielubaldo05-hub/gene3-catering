@@ -6,46 +6,86 @@
 <title>Events | Gene 3's Catering Service</title>
 <link rel="stylesheet" href="style.css">
 <style>
-/* Event package banner image */
-.package-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 18px;
-  display: block;
-  background: linear-gradient(135deg, #b8860b 0%, #8b0000 100%);
-}
-.package-img-wrap {
-  position: relative;
-  width: 100%;
-  height: 220px;
-  border-radius: 12px;
+/* Package card — centered, full background image */
+.package {
+  display: none;
+  max-width: 760px;
+  margin: 0 auto 40px;
+  border-radius: 18px;
   overflow: hidden;
-  margin-bottom: 18px;
-  background: linear-gradient(135deg, #b8860b 0%, #8b0000 100%);
-}
-.package-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.package-img-overlay {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 60px;
-  background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
-  border-radius: 0 0 12px 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  text-align: left;
 }
 
-/* Fix bullet left-alignment (style.css sets text-align:center on .content-area) */
-.package { text-align: left; }
-.package ul { margin: 6px 0 12px 18px; padding-left: 18px; list-style-position: outside; }
-.package ul li { margin-bottom: 4px; line-height: 1.6; font-size: 14px; text-align: left; }
-.package h3 { margin-top: 14px; margin-bottom: 4px; }
-.package h2 { text-align: center; }
-.package p.price { text-align: center; }
+/* Dark overlay so text stays readable over the background */
+.package::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 0;
+}
+
+/* Content card floats on top of the background */
+.package-content {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.93);
+  backdrop-filter: blur(3px);
+  margin: 180px 28px 28px;
+  border-radius: 14px;
+  padding: 28px 32px 24px;
+}
+
+.package-content h2 {
+  text-align: center;
+  margin-bottom: 4px;
+  color: #8b0000;
+}
+.package-content p.price {
+  text-align: center;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 12px;
+}
+.package-content h3 {
+  margin-top: 16px;
+  margin-bottom: 6px;
+  color: #333;
+  font-size: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+}
+.package-content ul {
+  margin: 6px 0 8px 18px;
+  padding-left: 18px;
+  list-style-position: outside;
+}
+.package-content ul li {
+  margin-bottom: 4px;
+  line-height: 1.6;
+  font-size: 14px;
+  color: #444;
+}
+.package-content .buttons {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .package-content {
+    margin: 140px 12px 12px;
+    padding: 18px 16px 16px;
+  }
+}
 </style>
 </head>
 
@@ -96,13 +136,8 @@
 <section id="packages">
 
 <!-- WEDDING -->
-<div class="package" id="wedding">
-<div class="package-img-wrap">
-  <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=900&q=80"
-       alt="Wedding catering setup"
-       onerror="this.style.display='none'">
-  <div class="package-img-overlay"></div>
-</div>
+<div class="package" id="wedding" style="background-image:url('https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+<div class="package-content">
 <h2>Wedding Package</h2>
 <p class="price">P350/head + 10% Service Charge</p>
 <h3>Inclusions</h3>
@@ -144,15 +179,11 @@
   <a href="inquire.html?type=Wedding" class="inquire-btn">INQUIRE NOW</a>
 </div>
 </div>
+</div>
 
 <!-- BIRTHDAY -->
-<div class="package" id="birthday">
-<div class="package-img-wrap">
-  <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=900&q=80"
-       alt="Birthday celebration catering"
-       onerror="this.style.display='none'">
-  <div class="package-img-overlay"></div>
-</div>
+<div class="package" id="birthday" style="background-image:url('https://images.pexels.com/photos/3992150/pexels-photo-3992150.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+<div class="package-content">
 <h2>Birthday Package</h2>
 <p class="price">P325/head + 10% Service Charge</p>
 <h3>Inclusions</h3>
@@ -193,15 +224,11 @@
   <a href="inquire.html?type=Birthday" class="inquire-btn">INQUIRE NOW</a>
 </div>
 </div>
+</div>
 
 <!-- BAPTISMAL -->
-<div class="package" id="baptismal">
-<div class="package-img-wrap">
-  <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=900&q=80"
-       alt="Baptismal catering feast"
-       onerror="this.style.display='none'">
-  <div class="package-img-overlay"></div>
-</div>
+<div class="package" id="baptismal" style="background-image:url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+<div class="package-content">
 <h2>Baptismal Package</h2>
 <p class="price">P325/head + 10% Service Charge</p>
 <h3>Inclusions</h3>
@@ -242,15 +269,11 @@
   <a href="inquire.html?type=Baptismal" class="inquire-btn">INQUIRE NOW</a>
 </div>
 </div>
+</div>
 
 <!-- HOUSE BLESSING -->
-<div class="package" id="house">
-<div class="package-img-wrap">
-  <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80"
-       alt="House blessing feast spread"
-       onerror="this.style.display='none'">
-  <div class="package-img-overlay"></div>
-</div>
+<div class="package" id="house" style="background-image:url('https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+<div class="package-content">
 <h2>House Blessing Package</h2>
 <p class="price">P350/head + 10% Service Charge</p>
 <h3>Inclusions</h3>
@@ -291,15 +314,11 @@
   <a href="inquire.html?type=House%20Blessing" class="inquire-btn">INQUIRE NOW</a>
 </div>
 </div>
+</div>
 
 <!-- GRADUATION -->
-<div class="package" id="graduation">
-<div class="package-img-wrap">
-  <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=900&q=80"
-       alt="Graduation celebration catering"
-       onerror="this.style.display='none'">
-  <div class="package-img-overlay"></div>
-</div>
+<div class="package" id="graduation" style="background-image:url('https://images.pexels.com/photos/587741/pexels-photo-587741.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+<div class="package-content">
 <h2>Graduation Package</h2>
 <p class="price">P325/head + 10% Service Charge</p>
 <h3>Inclusions</h3>
@@ -340,15 +359,11 @@
   <a href="inquire.html?type=Graduation" class="inquire-btn">INQUIRE NOW</a>
 </div>
 </div>
+</div>
 
 <!-- ANNIVERSARY -->
-<div class="package" id="anniversary">
-<div class="package-img-wrap">
-  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80"
-       alt="Anniversary elegant dinner"
-       onerror="this.style.display='none'">
-  <div class="package-img-overlay"></div>
-</div>
+<div class="package" id="anniversary" style="background-image:url('https://images.pexels.com/photos/1579739/pexels-photo-1579739.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+<div class="package-content">
 <h2>Anniversary Package</h2>
 <p class="price">P325/head + 10% Service Charge</p>
 <h3>Inclusions</h3>
@@ -389,15 +404,11 @@
   <a href="inquire.html?type=Anniversary" class="inquire-btn">INQUIRE NOW</a>
 </div>
 </div>
+</div>
 
 <!-- CORPORATE -->
-<div class="package" id="corporate">
-<div class="package-img-wrap">
-  <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=80"
-       alt="Corporate event catering"
-       onerror="this.style.display='none'">
-  <div class="package-img-overlay"></div>
-</div>
+<div class="package" id="corporate" style="background-image:url('https://images.pexels.com/photos/2306281/pexels-photo-2306281.jpeg?auto=compress&cs=tinysrgb&w=1200')">
+<div class="package-content">
 <h2>Corporate Event Package</h2>
 <p class="price">P350/head + 10% Service Charge</p>
 <h3>Inclusions</h3>
@@ -436,6 +447,7 @@
 <div class="buttons">
   <button onclick="goBack()">BACK</button>
   <a href="inquire.html?type=Corporate%20Event" class="inquire-btn">INQUIRE NOW</a>
+</div>
 </div>
 </div>
 
