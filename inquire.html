@@ -255,7 +255,7 @@
   <div class="footer-left">
     <h2>GENE 3'S CATERING SERVICE</h2>
     <p>Tambubong San Rafael Bulacan</p>
-    <p>gene3s@gmail.com</p>
+    <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e285878c87d191a2858f838b8ecc818d8f">[email&#160;protected]</a></p>
     <p>091-2354-2562</p>
   </div>
 </footer>
@@ -319,6 +319,7 @@
     </div>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
       <button onclick="window.print()" style="background:#fff;color:#900202;border:2px solid #900202;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">&#128424; Print</button>
+      <button onclick="downloadReceiptImage()" id="downloadReceiptBtn" style="background:#900202;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">&#128247; Save Receipt</button>
       <button onclick="document.getElementById('tyPopup').classList.remove('show')" style="background:#eee;color:#555;border:none;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Close</button>
       <button onclick="window.location.href='index.html'" style="background:#900202;color:#fff;border:none;padding:10px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Go Home</button>
     </div>
@@ -338,7 +339,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function openForm(type) {
   document.getElementById("choiceScreen").style.display = "none";
   document.getElementById("bookForm").style.display = "none";
@@ -388,6 +389,56 @@ function showReceipt(data) {
   document.getElementById("tyPopup").classList.add("show");
 }
 
+function downloadReceiptImage() {
+  var btn = document.getElementById("downloadReceiptBtn");
+  var originalText = btn.innerHTML;
+  btn.innerHTML = "⏳ Generating...";
+  btn.disabled = true;
+
+  // Temporarily hide the buttons row so it's not in the image
+  var actionsRow = btn.parentElement;
+  actionsRow.style.display = "none";
+
+  var receiptBox = document.getElementById("receiptBox");
+  html2canvas(receiptBox, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: "#ffffff",
+    logging: false
+  }).then(function(canvas) {
+    actionsRow.style.display = "flex";
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+
+    var refText = document.getElementById("rc_ref").textContent || "receipt";
+    var filename = "Gene3s-Receipt-" + refText + ".png";
+
+    // Try native share (mobile) first
+    canvas.toBlob(function(blob) {
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: "image/png" })] })) {
+        var file = new File([blob], filename, { type: "image/png" });
+        navigator.share({ files: [file], title: "Gene 3's Catering Receipt" })
+          .catch(function() { fallbackDownload(canvas, filename); });
+      } else {
+        fallbackDownload(canvas, filename);
+      }
+    }, "image/png");
+  }).catch(function(err) {
+    actionsRow.style.display = "flex";
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    alert("Could not generate image. Please use the Print option instead.");
+    console.error(err);
+  });
+}
+
+function fallbackDownload(canvas, filename) {
+  var link = document.createElement("a");
+  link.download = filename;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
 function openCheckBooking() {
   document.getElementById("choiceScreen").style.display = "none";
   document.getElementById("checkScreen").style.display = "block";
@@ -410,6 +461,7 @@ if (urlAction === "book") { openForm("book"); }
 if (urlAction === "reserve") { openForm("reserve"); }
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 var _supa = window.supabase.createClient(
@@ -706,7 +758,6 @@ function selectDate(prefix, dateStr) {
   document.getElementById(prefix + "_cal_selected").textContent = display;
   renderCal(prefix);
 }
-
 function calNav(prefix, dir) {
   calState[prefix].month += dir;
   if (calState[prefix].month > 11) { calState[prefix].month = 0; calState[prefix].year++; }
